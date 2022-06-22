@@ -1,0 +1,45 @@
+/**
+* Welcome to your ✨𝔲𝔱𝔦𝔩𝔦𝔱𝔶 𝔰𝔱𝔶𝔩𝔢𝔰✨!
+* This file includes utility classes that are super simple
+* and can be used to add general styles; variable definitions
+* for colors; and styles to html, body, and other high level
+* DOMs.
+* 
+* All utility classes start with a `u-` and all do
+* one basic CSS thing (for example, making the font-weight
+* 600 for bolding) or are super generic.
+* 
+* This is 𝙉𝙊𝙏 the place to define classes for components or
+* do rigorous styling. You shoud not need to change this file
+* much after initial creation.
+*/
+
+/* TODO: REPLACE WITH YOUR OWN FONT! */
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;800;900&display=swap");
+
+:root {
+    --dark: #202020;
+
+    --xs: 4px;
+    --s: 8px;
+    --ms: 12px;
+    --m: 16px;
+    --ml: 20px;
+    --l: 24px;
+    --xl: 32px;
+    --xxl: 48px;
+
+    --rad: 6px;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+body {
+    font-family: "Mulish", sans-serif;
+}
+
+p {
+    line-height: 1.5rem;
+}
