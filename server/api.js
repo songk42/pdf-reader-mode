@@ -12,6 +12,7 @@ const express = require("express");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
+const yauzl = require("yauzl");
 const { DownloaderHelper } = require('node-downloader-helper');
 
 const tmpDir = os.tmpdir();
@@ -37,7 +38,7 @@ const router = express.Router();
 router.get("/getfromurl", (req, res) => {
     try {
         // Initial setup, create credentials instance.
-        const credentials =  PDFServicesSdk.Credentials
+        const credentials = PDFServicesSdk.Credentials
             .serviceAccountCredentialsBuilder()
             .withClientId(process.env.CLIENT_ID)
             .withClientSecret(process.env.CLIENT_SECRET)
@@ -49,8 +50,8 @@ router.get("/getfromurl", (req, res) => {
         const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
         // Build extractPDF options
         const options = new PDFServicesSdk.ExtractPDF.options.ExtractPdfOptions.Builder()
-            .addElementsToExtract(PDFServicesSdk.ExtractPDF.options.ExtractElementType.TEXT, PDFServicesSdk.ExtractPDF.options.ExtractElementType.TABLES)
-            // .addElementsToExtractRenditions(PDFServicesSdk.ExtractPDF.options.ExtractRenditionsElementType.FIGURES)
+            .addElementsToExtract(PDFServicesSdk.ExtractPDF.options.ExtractElementType.TEXT)
+            .addElementsToExtractRenditions(PDFServicesSdk.ExtractPDF.options.ExtractRenditionsElementType.FIGURES, PDFServicesSdk.ExtractPDF.options.ExtractRenditionsElementType.TABLES)
             .getStylingInfo(true)
             .build()
         // Create a new operation instance.
@@ -61,29 +62,56 @@ router.get("/getfromurl", (req, res) => {
         // );
         // Download PDF from url first
         const inputdir = path.resolve(__dirname, "../input");
+        const outputdir = path.resolve(__dirname, "../output");
         const fname = "input.pdf";
-        const outname = path.resolve(__dirname, "../output/text-table-style-info.zip");
+        const zipname = "text-table-style-info.zip";
         const dl = new DownloaderHelper(req.query.fileurl, inputdir, {
-            headers: {'Content-Type': 'text/pdf'},
+            headers: { 'Content-Type': 'text/pdf' },
             fileName: fname
         });
         dl.on('end', () => {
-            console.log("file downloaded");
+            console.log("File downloaded");
             // Then create the ExtractPDF input
             const input = PDFServicesSdk.FileRef.createFromLocalFile(`${inputdir}${path.sep}${fname}`,
                 PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf);
-            // Set operation input from a source file.
             extractPDFOperation.setInput(input);
-            // Set options
             extractPDFOperation.setOptions(options);
             extractPDFOperation.execute(executionContext)
                 .then((result) => {
-                    result.saveAsFile(outname).then((res) => {
-                        console.log("zip file saved")
+                    result.saveAsFile(path.join(outputdir, zipname)).then((res) => {
+                        console.log("Zip file saved");
+                        yauzl.open(path.join(outputdir, zipname), { lazyEntries: true }, (err, zipfile) => {
+                            if (err) throw err;
+                            zipfile.readEntry();
+                            zipfile.on("entry", (entry) => {
+                                if (/\/$/.test(entry.fileName)) {
+                                    zipfile.readEntry();
+                                } else {
+                                    fs.mkdir(
+                                        path.join(outputdir, path.dirname(entry.fileName)),
+                                        { recursive: true },
+                                        (err) => {
+                                            if (err) throw err;
+                                            zipfile.openReadStream(entry, function (err, readStream) {
+                                                if (err) throw err;
+                                                readStream.on("end", function () {
+                                                    zipfile.readEntry();
+                                                });
+                                                const writer = fs.createWriteStream(
+                                                    path.join(outputdir, entry.fileName)
+                                                );
+                                                readStream.pipe(writer);
+                                            });
+                                        }
+                                    );
+                                }
+                            });
+                        });
+                        console.log("Unzipped");
                     })
                 })
                 .catch(err => {
-                    if(err instanceof PDFServicesSdk.Error.ServiceApiError
+                    if (err instanceof PDFServicesSdk.Error.ServiceApiError
                         || err instanceof PDFServicesSdk.Error.ServiceUsageError) {
                         console.log("Exception encountered while executing operation", err);
                     } else {
@@ -91,7 +119,7 @@ router.get("/getfromurl", (req, res) => {
                     }
                 });
         });
-        dl.on('error', (err) => console.log("download failed: ", err.message));
+        dl.on('error', (err) => console.log("Download failed: ", err.message));
         dl.start().catch(err => console.error(err));
     } catch (err) {
         console.log('Exception encountered while executing operation', err);
