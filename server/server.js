@@ -33,14 +33,14 @@ app.use(validator.checkRoutes);
 // allow us to parse POST request data using middleware
 app.use(express.json());
 
-// set up a session, which will persist login data across requests
-app.use(
-    session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: false,
-    })
-);
+// // set up a session, which will persist login data across requests
+// app.use(
+//     session({
+//         secret: process.env.SESSION_SECRET,
+//         resave: false,
+//         saveUninitialized: false,
+//     })
+// );
 
 // post size limit
 const bodyParser = require("body-parser");

@@ -1,31 +1,44 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { get } from "../../utilities";
+
 function FileInput() {
     const [fileURL, setFileURL] = useState("");
     const fileUpload = React.createRef();
 
-    // handle submit
+    function isValidPDF(file) {
+        if (file.type === "application/pdf") {
+            return true;
+        }
+        if (file.type === "" && file.name) {
+            const fileName = file.name;
+            const lastDotIndex = fileName.lastIndexOf(".");
+            if (lastDotIndex === -1 || fileName.substr(lastDotIndex).toUpperCase() !== "PDF") return false;
+            return true;
+        }
+        return false;
+    };
+
     function handleSubmit(event) {
+        const pdfObj = {
+            fileurl: fileURL,
+            filepath: null,
+        };
+        get("/api/gettext", pdfObj).then((res) => {
+            alert("asdf")
+        });
         event.preventDefault();
     }
 
     function resetAll() {
-        // setSearchText("");
+        setFileURL("");
     }
     
     return (
         <form className="file-input" onSubmit={handleSubmit}>
             <label>
-                Upload file:
-                <input
-                    type="file"
-                    className="file-upload"
-                    ref={fileUpload}
-                ></input>
-            </label>
-            <label>
-                Or paste URL:
+                Paste URL:
                 <input
                     type="text"
                     className="file-url"
