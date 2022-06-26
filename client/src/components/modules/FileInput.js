@@ -25,9 +25,12 @@ function FileInput() {
             fileurl: fileURL,
             filepath: null,
         };
-        get("/api/gettext", pdfObj).then((res) => {
-            alert("asdf")
-        });
+        // if (filepath === null) {
+            get("/api/getfromurl", pdfObj).then((res) => {
+                alert("asdf")
+            });
+        // }
+        
         event.preventDefault();
     }
 

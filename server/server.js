@@ -22,6 +22,7 @@ validator.checkSetup();
 const express = require("express"); // backend framework for our node server.
 const session = require("express-session"); // library that stores info about each connected user.
 const path = require("path"); // provide utilities for working with file and directory paths
+
 require("dotenv").config();
 
 const api = require("./api.js");
@@ -32,15 +33,6 @@ app.use(validator.checkRoutes);
 
 // allow us to parse POST request data using middleware
 app.use(express.json());
-
-// // set up a session, which will persist login data across requests
-// app.use(
-//     session({
-//         secret: process.env.SESSION_SECRET,
-//         resave: false,
-//         saveUninitialized: false,
-//     })
-// );
 
 // post size limit
 const bodyParser = require("body-parser");
@@ -54,9 +46,6 @@ app.use(
         limit: "50mb",
     })
 );
-
-// this checks if the user is logged in, and populates "req.user"
-// app.use(auth.populateCurrentUser);
 
 // connect API routes from api.js
 app.use("/api", api);
