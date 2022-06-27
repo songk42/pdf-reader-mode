@@ -61,8 +61,8 @@ router.get("/getfromurl", (req, res) => {
         //     PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
         // );
         // Download PDF from url first
-        const inputdir = path.resolve(__dirname, "../input");
-        const outputdir = path.resolve(__dirname, "../output");
+        const inputdir = path.resolve(__dirname, "../../pdf-io/input");
+        const outputdir = path.resolve(__dirname, "../../pdf-io/output");
         const fname = "input.pdf";
         const zipname = "text-table-style-info.zip";
         const dl = new DownloaderHelper(req.query.fileurl, inputdir, {
@@ -77,10 +77,10 @@ router.get("/getfromurl", (req, res) => {
             extractPDFOperation.setInput(input);
             extractPDFOperation.setOptions(options);
             extractPDFOperation.execute(executionContext)
-                .then((result) => {
-                    result.saveAsFile(path.join(outputdir, zipname)).then((res) => {
+                .then((res1) => {
+                    res1.saveAsFile(path.join(outputdir, zipname)).then((res2) => {
                         console.log("Zip file saved");
-                        yauzl.open(path.join(outputdir, zipname), { lazyEntries: true }, (err, zipfile) => {
+                        yauzl.open(path.join(outputdir, zipname), { autoClose: false, lazyEntries: true }, (err, zipfile) => {
                             if (err) throw err;
                             zipfile.readEntry();
                             zipfile.on("entry", (entry) => {
@@ -106,8 +106,14 @@ router.get("/getfromurl", (req, res) => {
                                     );
                                 }
                             });
+                            zipfile.on("end", (res3) => {
+                                zipfile.close();
+                                console.log("Unzipped");
+                                // res.send({done: true});
+                                const pdfObj = JSON.parse(fs.readFileSync(path.resolve(outputdir, "structuredData.json"), 'utf8'));
+                                res.send(pdfObj);
+                            })
                         });
-                        console.log("Unzipped");
                     })
                 })
                 .catch(err => {

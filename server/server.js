@@ -1,18 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| server.js -- The core of your server
-|--------------------------------------------------------------------------
-|
-| This file defines how your server starts up. Think of it as the main() of your server.
-| At a high level, this file does the following things:
-| - Connect to the database
-| - Sets up server middleware (i.e. addons that enable things like json parsing)
-| - Hooks up all the backend routes specified in api.js
-| - Fowards frontend routes that should be handled by the React router
-| - Sets up error handling in case something goes wrong when handling a request
-| - Actually starts the webserver
-*/
-
 // validator runs some basic checks to make sure you've set everything up correctly
 // this is a tool provided by staff, so you don't need to worry about it
 const validator = require("./validator");
@@ -20,9 +5,9 @@ validator.checkSetup();
 
 // import libraries needed for the webserver to work!
 const express = require("express"); // backend framework for our node server.
-const session = require("express-session"); // library that stores info about each connected user.
 const path = require("path"); // provide utilities for working with file and directory paths
 
+// get environment variables
 require("dotenv").config();
 
 const api = require("./api.js");
@@ -33,19 +18,6 @@ app.use(validator.checkRoutes);
 
 // allow us to parse POST request data using middleware
 app.use(express.json());
-
-// post size limit
-const bodyParser = require("body-parser");
-app.use(
-    bodyParser.json({
-        limit: "50mb",
-    })
-);
-app.use(
-    bodyParser.urlencoded({
-        limit: "50mb",
-    })
-);
 
 // connect API routes from api.js
 app.use("/api", api);
@@ -69,6 +41,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(process.env.PORT || 3000, () => {
+var server = app.listen(process.env.PORT || 3000, () => {
     console.log("Server running");
 });
+server.timeout = 600000; // I really hope this is actually the upper limit...
