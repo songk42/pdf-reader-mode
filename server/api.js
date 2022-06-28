@@ -35,7 +35,7 @@ function isEmpty(obj) {
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
 
-function extractJSON(infile, callback) {
+function extractJSON(instream, callback) {
     // ExtractPDF params
     const credentials = PDFServicesSdk.Credentials
         .serviceAccountCredentialsBuilder()
@@ -51,7 +51,7 @@ function extractJSON(infile, callback) {
         .addElementsToExtractRenditions(PDFServicesSdk.ExtractPDF.options.ExtractRenditionsElementType.FIGURES, PDFServicesSdk.ExtractPDF.options.ExtractRenditionsElementType.TABLES)
         .getStylingInfo(true)
         .build()
-    const input = PDFServicesSdk.FileRef.createFromLocalFile(infile,
+    const input = PDFServicesSdk.FileRef.createFromLocalFile(instream,
         PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf);
     const extractPDFOperation = PDFServicesSdk.ExtractPDF.Operation.createNew();
     extractPDFOperation.setInput(input);
@@ -106,26 +106,21 @@ function extractJSON(infile, callback) {
 
 router.get("/getfromurl", (req, res) => {
     try {
-        // input = PDFServicesSdk.FileRef.createFromLocalFile(
-        //     req.query.filepath,
-        //     PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
-        // );
         // Download PDF from url first
         const inputdir = path.resolve(__dirname, "../../pdf-io/input");
         const fname = "input.pdf";
-        const dl = new DownloaderHelper(req.query.fileurl, inputdir, {
+        fetch(req.query.fileurl, inputdir, {
             headers: { 'Content-Type': 'text/pdf' },
             fileName: fname
-        });
-        dl.on('end', () => {
+        })
+        .then(fres => fres.blob())
+        .then((blob) => {
             console.log("File downloaded");
-            extractJSON(`${inputdir}${path.sep}${fname}`, (pdfObj) => {
+            extractJSON(stream(blob), (pdfObj) => {
                 console.log("asdf");
                 res.send(pdfObj);
             });
         });
-        dl.on('error', (err) => console.log("Download failed: ", err.message));
-        dl.start().catch(err => console.error(err));
     } catch (err) {
         console.log('Exception encountered while executing operation', err);
     }
