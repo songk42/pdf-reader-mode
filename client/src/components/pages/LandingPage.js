@@ -9,7 +9,7 @@ function LandingPage() {
     return (
         <div id="landing" className="page-container">
             <h1 className="landing-title">PDF Reader Mode</h1>
-            <FileInput />
+            <FileInput urlInput={true} />
         </div>
     );
 }
