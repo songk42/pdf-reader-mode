@@ -19,7 +19,7 @@ function FileInput(props) {
         //     apiCall = "/api/getfromfile"
         // }
         get(apiCall, apiInput).then((pdfObj) => {
-            alert(pdfObj.elements.length);
+            props.setPdfObj(pdfObj);
         });
 
         event.preventDefault();

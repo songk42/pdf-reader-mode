@@ -106,10 +106,6 @@ function extractJSON(infile, callback) {
 
 router.get("/getfromurl", (req, res) => {
     try {
-        // input = PDFServicesSdk.FileRef.createFromLocalFile(
-        //     req.query.filepath,
-        //     PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
-        // );
         // Download PDF from url first
         const inputdir = path.resolve(__dirname, "../../pdf-io/input");
         const fname = "input.pdf";
