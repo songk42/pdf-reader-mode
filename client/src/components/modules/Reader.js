@@ -21,15 +21,18 @@ function Reader(props) {
         const plen = ppath.length;
         let content = [];
         for (var kid of kids) {
-            const classes = getClasses(kid.Font);
-            if (kid.Path.includes("StyleSpan")) {
-                content.push(<span className={classes}>{kid.Text.replace(/\ue020/g, " ")}</span>);
-            }
-            else if (kid.Path.includes("Sub")) {
-                content.push(<div className={classes+" newline"}>{kid.Text.replace(/\ue020/g, " ")}</div>);
-            }
-            else {
-                content.push(kid.Text.replace(/\ue020/g, " "));
+            let classes = "";
+            if ("Font" in kid) classes = getClasses(kid.Font);
+            if ("Text" in kid) {
+                if (kid.Path.includes("StyleSpan")) {
+                    content.push(<span className={classes}>{kid.Text.replace(/\ue020/g, " ")}</span>);
+                }
+                else if (kid.Path.includes("Sub")) {
+                    content.push(<div className={classes+" newline"}>{kid.Text.replace(/\ue020/g, " ")}</div>);
+                }
+                else {
+                    content.push(kid.Text.replace(/\ue020/g, " "));
+                }
             }
         }
         return content;
@@ -50,7 +53,7 @@ function Reader(props) {
         if ("Font" in element) {
             font = element.Font;
         }
-        else {
+        else if ("Kids" in element) {
             for (var kid of element.Kids) {
                 if (kid.Path == element.Path) {
                     font = kid.Font;
@@ -90,15 +93,16 @@ function Reader(props) {
             return <h1 className={classes}>{content}</h1>;
         }
         if (last[0] == "P") {
-            // font class information is stored in the kids as opposed to the parent
             return <p className={classes}>{content}</p>;
         }
         if (last[0] == "R") {
-            // wrong; doesn't account for "content"
-            if ("Reference" in element) {
-                return <a  className={classes} href={element.Reference}>{element.Text}</a>;
-            }
-            return <a  className={classes} href="#">{content}</a>;
+            // if ("Reference" in element) {
+            //     return <a className={classes} href={element.Reference}>{content}</a>;
+            // }
+            return <a className={classes} href="#">{content}</a>;
+        }
+        if (last.slice(0, 4) == "Foot") {
+            return <p className={classes+" footnote"}>{content}</p>;
         }
         if (last.slice(0, 5) == "Lbody") {
             return <li className={classes}>{content}</li>;
@@ -121,6 +125,13 @@ function Reader(props) {
         if (last.slice(0, 3) == "Sub") {
             return <p className={classes}>{content}</p>;
         }
+        if (last.slice(0, 4) == "Sect") {
+            return <div className={classes+"section"}>{content}</div>;
+        }
+        if (last.slice(0, 5) == "Aside") {
+            return <aside className={classes}>{content}</aside>;
+        }
+        if (last.slice(0, 6) == "Figure") {}
         return <div className={classes}>{content}</div>;
     }
 
@@ -312,8 +323,8 @@ function Reader(props) {
 
     return (
         <div>
-            {tmpObj.elements.map((e) => renderElement(e))}
-            {/* {props.pdfObj.elements.map((e) => renderElement(e))} */}
+            {/* {tmpObj.elements.map((e) => renderElement(e))} */}
+            {props.pdfObj.elements.map((e) => renderElement(e))}
         </div>
     );
 }

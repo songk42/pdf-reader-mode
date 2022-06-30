@@ -13,7 +13,6 @@ function FileInput(props) {
             // fileurl: URL.createObjectURL(file),
             fileurl: fileURL,
         };
-        console.log(apiInput);
         let apiCall = "/api/getfromurl";
         // if (fileURL == "") {
         //     apiCall = "/api/getfromfile"

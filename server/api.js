@@ -94,7 +94,6 @@ function extractJSON(infile, callback) {
                     zipfile.on("end", (res3) => {
                         zipfile.close();
                         console.log("Unzipped");
-                        // res.send({done: true});
                         const pdfObj = JSON.parse(fs.readFileSync(path.resolve(outputdir, "structuredData.json"), 'utf8'));
                         console.log("JS object created")
                         callback(pdfObj);
@@ -116,7 +115,6 @@ router.get("/getfromurl", (req, res) => {
         dl.on('end', () => {
             console.log("File downloaded");
             extractJSON(`${inputdir}${path.sep}${fname}`, (pdfObj) => {
-                console.log("asdf");
                 res.send(pdfObj);
             });
         });
