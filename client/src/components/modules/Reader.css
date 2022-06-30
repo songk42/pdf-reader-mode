@@ -1,0 +1,47 @@
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.wt-100 {
+    font-weight: 100;
+}
+
+.wt-200 {
+    font-weight: 200;
+}
+
+.wt-300 {
+    font-weight: 300;
+}
+
+.wt-400 {
+    font-weight: 400;
+}
+
+.wt-500 {
+    font-weight: 500;
+}
+
+.wt-600 {
+    font-weight: 600;
+}
+
+.wt-700 {
+    font-weight: 700;
+}
+
+.wt-800 {
+    font-weight: 800;
+}
+
+.wt-900 {
+    font-weight: 900;
+}
+
+.newline {
+    white-space: pre-line;
+}

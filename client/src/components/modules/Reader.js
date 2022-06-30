@@ -3,79 +3,125 @@ import { Link } from "react-router-dom";
 
 import { get } from "../../utilities";
 
+import "./Reader.css";
+
 function Reader(props) {
     // can you assign html tags to variables?
-    // warning: p can't be a child of p
+    function getClasses(fontinfo) {
+        let classes = [`wt-${fontinfo.weight}`];
+        if (fontinfo.italic) {
+            classes.push("italic");
+        }
+        if (fontinfo.monospaced) {
+            classes.push("monospaced");
+        }
+        return classes.join(" ");
+    }
+    function handleKids(kids, ppath) {
+        const plen = ppath.length;
+        let content = [];
+        for (var kid of kids) {
+            const classes = getClasses(kid.Font);
+            if (kid.Path.includes("StyleSpan")) {
+                content.push(<span className={classes}>{kid.Text.replace(/\ue020/g, " ")}</span>);
+            }
+            else if (kid.Path.includes("Sub")) {
+                content.push(<div className={classes+" newline"}>{kid.Text.replace(/\ue020/g, " ")}</div>);
+            }
+            else {
+                content.push(kid.Text.replace(/\ue020/g, " "));
+            }
+        }
+        return content;
+    };
+
     function renderElement(element) {
+        // get content
         let content = [];
         if ("Text" in element) {
-            content = [element.Text];
+            content = [element.Text.replace(/\ue020/g, " ")];
         }
         if ("Kids" in element) {
-            content = content.concat(element.Kids.map((kid, index) => renderElement(kid)));
+            content = content.concat(handleKids(element.Kids, element.Path));
             // add a key to each kid
         }
-        var path = element.Path.split("/");
-        var last = path[path.length - 1];
+        // get font info
+        let font = {};
+        if ("Font" in element) {
+            font = element.Font;
+        }
+        else {
+            for (var kid of element.Kids) {
+                if (kid.Path == element.Path) {
+                    font = kid.Font;
+                    break;
+                }
+            }
+        }
+        const classes = getClasses(font);
+        // get html info
+        const path = element.Path.split("/");
+        let last = path[path.length - 1];
         if (last == "StyleSpan") {
             last = path[path.length-2];
         }
         if (last.slice(0, 10) == "HyphenSpan") {
-            return;
+            return <span className={classes}>{content}</span>;
         }
         if (last.slice(0, 5) == "Title") {
-            return <h1>{content}</h1>; // but add "title" class
+            return <h1 className={classes + " title-text"}>{content}</h1>; // but add "title" class
         }
         if (last.slice(0, 2) == "H6") {
-            return <h6>{content}</h6>;
+            return <h6 className={classes}>{content}</h6>;
         }
         if (last.slice(0, 2) == "H5") {
-            return <h5>{content}</h5>;
+            return <h5 className={classes}>{content}</h5>;
         }
         if (last.slice(0, 2) == "H4") {
-            return <h4>{content}</h4>;
+            return <h4 className={classes}>{content}</h4>;
         }
         if (last.slice(0, 2) == "H3") {
-            return <h3>{content}</h3>;
+            return <h3 className={classes}>{content}</h3>;
         }
         if (last.slice(0, 2) == "H2") {
-            return <h2>{content}</h2>;
+            return <h2 className={classes}>{content}</h2>;
         }
         if (last[0] == "H") {
-            return <h1>{content}</h1>;
+            return <h1 className={classes}>{content}</h1>;
         }
         if (last[0] == "P") {
-            return <p>{content}</p>;
+            // font class information is stored in the kids as opposed to the parent
+            return <p className={classes}>{content}</p>;
         }
         if (last[0] == "R") {
             // wrong; doesn't account for "content"
             if ("Reference" in element) {
-                return <a href={element.Reference}>{element.Text}</a>;
+                return <a  className={classes} href={element.Reference}>{element.Text}</a>;
             }
-            return <a href="#">{element.Text}</a>;
+            return <a  className={classes} href="#">{content}</a>;
         }
         if (last.slice(0, 5) == "Lbody") {
-            return <li>{content}</li>;
+            return <li className={classes}>{content}</li>;
         }
         if (last[0] == "L") {
-            return <ul>{content}</ul>;
+            return <ul className={classes}>{content}</ul>;
         }
         if (last.slice(0, 5) == "Table") {
-            return <table>{content}</table>;
+            return <table className={classes}>{content}</table>;
         }
         if (last.slice(0, 2) == "TR") {
-            return <tr>{content}</tr>;
+            return <tr className={classes}>{content}</tr>;
         }
         if (last.slice(0, 2) == "TH") {
-            return <th>{content}</th>;
+            return <th className={classes}>{content}</th>;
         }
         if (last.slice(0, 2) == "TH") {
-            return <td>{content}</td>;
+            return <td className={classes}>{content}</td>;
         }
         if (last.slice(0, 3) == "Sub") {
-            return <p>{content}</p>;
+            return <p className={classes}>{content}</p>;
         }
-        return <div>{content}</div>;
+        return <div className={classes}>{content}</div>;
     }
 
     var tmpObj = {
@@ -266,7 +312,8 @@ function Reader(props) {
 
     return (
         <div>
-            {props.pdfObj.elements.map((e) => renderElement(e))}
+            {tmpObj.elements.map((e) => renderElement(e))}
+            {/* {props.pdfObj.elements.map((e) => renderElement(e))} */}
         </div>
     );
 }
