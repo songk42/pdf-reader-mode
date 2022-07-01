@@ -1,4 +1,9 @@
 /* General */
+.reader-container {
+    margin: auto;
+}
+
+/* Text styling */
 .italic {
     font-style: italic;
 }

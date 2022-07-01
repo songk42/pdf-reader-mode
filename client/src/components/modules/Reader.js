@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
-import { get } from "../../utilities";
+import React from "react";
 
 import "./Reader.css";
 
@@ -323,11 +320,11 @@ function Reader(props) {
 
     return (
         <div
-            className={"reader-container-" + props.colorScheme}
+            className={"reader-container reader-container-" + props.colorScheme}
             style={{
                 "fontSize": `${props.fontSize}px`,
                 "lineHeight": `${props.lineHeight}em`,
-                "bodyWidth": `${props.bodyWidth}em`
+                "width": `${props.bodyWidth}em`
             }}>
             {tmpObj.elements.map((e) => renderElement(e))}
             {/* {props.pdfObj.elements.map((e) => renderElement(e))} */}

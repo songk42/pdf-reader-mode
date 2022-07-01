@@ -1,3 +1,21 @@
+/* General */
+.hover-label {
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    padding: 4px 8px;
+    z-index: 1001;
+}
+
+/* Font */
+.page-container-serif {
+    font-family: "Georgia", serif;
+}
+
+.page-container-sans-serif {
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
 /* Light */
 
 .page-container-light {
