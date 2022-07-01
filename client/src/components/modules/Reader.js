@@ -23,15 +23,23 @@ function Reader(props) {
         for (var kid of kids) {
             let classes = "";
             if ("Font" in kid) classes = getClasses(kid.Font);
+            let newContent = "";
             if ("Text" in kid) {
+                newContent = kid.Text.replace(/\ue020/g, " ");
+                if ("attributes" in kid) {
+                    if ("TextPosition" in kid.attributes) {
+                        if (kid.attributes.TextPosition == "Sup") newContent = <sup>{newContent}</sup>;
+                        else if (kid.attributes.TextPosition == "Sub") newContent = <sub>{newContent}</sub>;
+                    }
+                }
                 if (kid.Path.includes("/Span")) {
-                    content.push(<span className={classes}>{kid.Text.replace(/\ue020/g, " ")}</span>);
+                    content.push(<span className={classes}>{newContent}</span>);
                 }
                 else if (kid.Path.includes("Sub")) {
-                    content.push(<div className={classes+" newline"}>{kid.Text.replace(/\ue020/g, " ")}</div>);
+                    content.push(<div className={classes+" newline"}>{newContent}</div>);
                 }
                 else {
-                    content.push(kid.Text.replace(/\ue020/g, " "));
+                    content.push(newContent);
                 }
             }
         }
@@ -42,7 +50,14 @@ function Reader(props) {
         // get content
         let content = [];
         if ("Text" in element) {
-            content = [element.Text.replace(/\ue020/g, " ")];
+            let text = element.Text.replace(/\ue020/g, " ");
+            if ("attributes" in element) {
+                if ("TextPosition" in element.attributes) {
+                    if (element.attributes.TextPosition == "Sup") text = <sup>{text}</sup>;
+                    else if (element.attributes.TextPosition == "Sub") text = <sub>{text}</sub>;
+                }
+            }
+            content = [text];
         }
         if ("Kids" in element) {
             content = content.concat(handleKids(element.Kids, element.Path));
@@ -111,7 +126,9 @@ function Reader(props) {
             return <ul className={classes}>{content}</ul>;
         }
         if (last.slice(0, 5) == "Table") {
-            return <table className={classes}>{content}</table>;
+            // return <table className={classes}>{content}</table>;
+            return <img src={`/home/skim52/pdf-io/output/${element.filePaths[0]}`}></img>; // this is hard-coded for now
+            // I dislike this for accessibility reasons
         }
         if (last.slice(0, 2) == "TR") {
             return <tr className={classes}>{content}</tr>;
@@ -132,7 +149,7 @@ function Reader(props) {
             return <aside className={classes}>{content}</aside>;
         }
         if (last.slice(0, 6) == "Figure") {
-            return <img src={`../../../../../pdf-io/output/${element.filePaths[0]}`}></img>; // this is hard-coded for now
+            return <img src={`/home/skim52/pdf-io/output/${element.filePaths[0]}`}></img>; // this is hard-coded for now
         }
         return <div className={classes}>{content}</div>;
     }
