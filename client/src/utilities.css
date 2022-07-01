@@ -1,20 +1,28 @@
 :root {
-    --dark: #202020;
-
-    --xs: 4px;
-    --s: 8px;
-    --ms: 12px;
-    --m: 16px;
-    --ml: 20px;
-    --l: 24px;
-    --xl: 32px;
-    --xxl: 48px;
-
-    --rad: 6px;
+    --body-padding: 64px;
+    --popup-border: rgba(0, 0, 0, 0.12);
+    --opaque-popup-border: #e0e0e0;
+    --popup-shadow: rgba(49, 49, 49, 0.3);
+    --grey-90-a10: rgba(12, 12, 13, 0.1);
+    --grey-90-a20: rgba(12, 12, 13, 0.2);
+    --grey-90-a30: rgba(12, 12, 13, 0.3);
+    --grey-90-a80: rgba(12, 12, 13, 0.8);
+    --grey-30: #d7d7db;
+    --blue-40: #45a1ff;
+    --blue-40-a30: rgba(69, 161, 255, 0.3);
+    --blue-60: #024db0;
+    --active-color: #0B83FF;
+    --font-size: 12;
+    --content-width: 22em;
+    --line-height: 1.6em;
+    --tooltip-background: var(--grey-90-a80);
+    --tooltip-foreground: white;
+    --toolbar-button-hover: var(--grey-90-a10);
+    --toolbar-button-active: var(--grey-90-a20);
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 1.6em;
 }
 
 body {

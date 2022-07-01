@@ -1,0 +1,30 @@
+/* Light */
+
+.page-container-light {
+    background-color: #fff;
+    color: #333;
+}
+
+.page-container-light a {
+    color: var(--blue-60);
+}
+
+.page-container-light a:visited {
+    color: #8a0161;
+}
+
+
+/* Dark */
+
+.page-container-dark {
+    background-color: rgb(28, 27, 34);
+    color: #eee;
+}
+
+.page-container-dark a {
+    color: #6fb5fc;
+}
+
+.page-container-dark a:visited {
+    color: #e687fa;
+}

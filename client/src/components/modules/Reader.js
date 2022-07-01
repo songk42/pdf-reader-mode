@@ -36,7 +36,7 @@ function Reader(props) {
                     content.push(<span className={classes}>{newContent}</span>);
                 }
                 else if (kid.Path.includes("Sub")) {
-                    content.push(<div className={classes+" newline"}>{newContent}</div>);
+                    content.push(<div className={classes + " newline"}>{newContent}</div>);
                 }
                 else {
                     content.push(newContent);
@@ -81,7 +81,7 @@ function Reader(props) {
         const path = element.Path.split("/");
         let last = path[path.length - 1];
         if (last == "StyleSpan") {
-            last = path[path.length-2];
+            last = path[path.length - 2];
         }
         if (last.slice(0, 10) == "HyphenSpan") {
             return <span className={classes}>{content}</span>;
@@ -117,7 +117,7 @@ function Reader(props) {
             return <a className={classes} href="#">{content}</a>;
         }
         if (last.slice(0, 4) == "Foot") {
-            return <p className={classes+" footnote"}>{content}</p>;
+            return <p className={classes + " footnote"}>{content}</p>;
         }
         if (last.slice(0, 5) == "Lbody") {
             return <li className={classes}>{content}</li>;
@@ -143,7 +143,7 @@ function Reader(props) {
             return <p className={classes}>{content}</p>;
         }
         if (last.slice(0, 4) == "Sect") {
-            return <div className={classes+"section"}>{content}</div>;
+            return <div className={classes + "section"}>{content}</div>;
         }
         if (last.slice(0, 5) == "Aside") {
             return <aside className={classes}>{content}</aside>;
@@ -154,10 +154,183 @@ function Reader(props) {
         return <div className={classes}>{content}</div>;
     }
 
+    const tmpObj = {
+        "elements": [
+            {
+                "Font": {
+                    "italic": false,
+                    "monospaced": false,
+                    "weight": 700
+                },
+                "Path": "//Document/Title",
+                "Text": "Process for Adapting Language Models to Society (PALMS) with Values-Targeted Datasets ",
+            },
+            {
+                "Kids": [
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 700
+                        },
+                        "Path": "//Document/P/ParagraphSpan/Sub",
+                        "Text": "IreneSolaiman",
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P/ParagraphSpan/Sub/Reference",
+                        "Text": "∗ ",
+                        "attributes": {
+                            "BaselineShift": 3.625,
+                            "TextPosition": "Sup"
+                        }
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P/ParagraphSpan/Sub[2]",
+                        "Text": "OpenAI",
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": true,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P/ParagraphSpan/Sub[3]",
+                        "Text": "irene@openai.com ",
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 700
+                        },
+                        "Path": "//Document/P/ParagraphSpan[2]/Sub",
+                        "Text": "ChristyDennison",
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P/ParagraphSpan[2]/Sub/Reference",
+                        "Text": "∗ ",
+                        "attributes": {
+                            "BaselineShift": 3.625,
+                            "TextPosition": "Sup"
+                        }
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P/ParagraphSpan[2]/Sub[2]",
+                        "Text": "OpenAI",
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": true,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P/ParagraphSpan[2]/Sub[3]",
+                        "Text": "christy@openai.com ",
+                    }
+                ],
+                "Path": "//Document/P",
+            },
+            {
+                "Font": {
+                    "italic": false,
+                    "monospaced": false,
+                    "weight": 700
+                },
+                "Path": "//Document/H1",
+                "Text": "Abstract ",
+            },
+            {
+                "Kids": [
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P[2]",
+                        "Text": "Languagemodelscangenerateharmfulandbiasedoutputsandexhibitun",
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P[2]/HyphenSpan",
+                        "Text": "-",
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P[2]",
+                        "Text": "desirablebehavior.WeproposeaProcessforAdaptingLanguageModelstoSociety(PALMS)withValues-TargetedDatasets,aniterativeprocesstosigniﬁcantlychangemodelbehaviorbycraftingandﬁne-tuningonadatasetthatreﬂectsapredeterminedsetoftargetvalues.Weevaluateourprocessusingthreemetrics:quantitativemetricswithhumanevaluationsthatscoreoutputadherencetoatargetvalue,andtoxicityscoringonout",
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P[2]/HyphenSpan[2]",
+                        "Text": "-",
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P[2]",
+                        "Text": "puts;andqualitativemetricsanalyzingthemostcommonwordassociatedwithagivensocialcategory.Througheachiteration,weaddadditionaltrainingdatasetexamplesbasedonobservedshortcomingsfromevaluations.PALMSperformssigniﬁcantlybetteronallmetricscomparedtobaselineandcontrolmodelsforabroadrangeofGPT-3languagemodelsizeswith",
+                    },
+                    {
+                        "Font": {
+                            "italic": false,
+                            "monospaced": false,
+                            "weight": 400
+                        },
+                        "Path": "//Document/P[2]",
+                        "Text": "outcompromisingcapabilityintegrity.WeﬁndthattheeﬀectivenessofPALMSincreaseswithmodelsize.Weshowthatsigniﬁcantlyadjustinglanguagemodelbehaviorisfeasiblewithasmall,hand-curateddataset.",
+                    }
+                ],
+                "Path": "//Document/P[2]",
+            },
+        ]
+    };
+
     return (
-        <div>
-            {/* {tmpObj.elements.map((e) => renderElement(e))} */}
-            {props.pdfObj.elements.map((e) => renderElement(e))}
+        <div
+            className={"reader-container-" + props.colorScheme}
+            style={{
+                "fontSize": `${props.fontSize}px`,
+                "lineHeight": `${props.lineHeight}em`,
+                "bodyWidth": `${props.bodyWidth}em`
+            }}>
+            {tmpObj.elements.map((e) => renderElement(e))}
+            {/* {props.pdfObj.elements.map((e) => renderElement(e))} */}
         </div>
     );
 }
