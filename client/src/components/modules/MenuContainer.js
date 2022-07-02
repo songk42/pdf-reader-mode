@@ -9,7 +9,7 @@ function MenuContainer(props) {
     const [showMenu, setMenu] = useState(false);
 
     return (
-        <div className={"menu-container menu-" + props.colorScheme}>
+        <div className="menu-container">
             <button
                 className="menu-toggle"
                 onClick={(e) => setMenu(!showMenu)}
@@ -19,6 +19,7 @@ function MenuContainer(props) {
             </button>
             {showMenu ? 
             <Menu
+                colorScheme={props.colorScheme}
                 setColorScheme={props.setColorScheme}
                 setFontSize={props.setFontSize}
                 setLineHeight={props.setLineHeight}

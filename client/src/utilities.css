@@ -23,17 +23,20 @@
 
 h1 {
     font-size: 1.6em;
+    line-height: 1.25em;
 }
 
 h2 {
     font-size: 1.2em;
+    line-height: 1.5em;
+}
+
+h3 {
+    font-size: 1em;
+    line-height: 1.66em;
 }
 
 body {
     margin: 0px;
     font-family: "Helvetica", "Arial", sans-serif;
-}
-
-p {
-    line-height: 1.5rem;
 }
