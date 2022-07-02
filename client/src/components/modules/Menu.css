@@ -35,6 +35,10 @@
     margin: 0;
 }
 
+.menu-font-selected {
+    background-color: var(--blue-40-a30) !important;
+}
+
 .menu-sans-serif p {
     font-family: "Helvetica", "Arial", sans-serif;
 }
@@ -92,6 +96,7 @@
 /* Light */
 .menu-light {
     background-color: white;
+    color: #333;
 }
 
 .menu-light .menu-font {
@@ -106,10 +111,50 @@
     background-color: hsla(240,5%,5%,.15);
 }
 
-.menu-light .menu-font-selected {
-    background-color: var(--blue-40-a30);
+.menu-light .menu-label {
+    background-color: #edecf0;
 }
 
-.menu-light .menu-label {
+/* Dark */
+.menu-dark {
+    background-color: rgb(66,65,77);
+    color: #eee;
+}
+
+.menu-dark .menu-font {
+    background-color: #5c5c61;
+}
+
+.menu-dark .menu-button:enabled:hover {
+    background-color: var(--grey-90-a30);
+}
+
+.menu-dark .menu-button:enabled:active {
+    background-color: var(--grey-90-a80);
+}
+
+.menu-dark .menu-label {
+    background-color: #5c5c61;
+}
+
+/* Sepia */
+.menu-sepia {
+    background-color: white;
+    color: #333;
+}
+
+.menu-sepia .menu-font {
+    background-color: #edecf0;
+}
+
+.menu-sepia .menu-button:enabled:hover {
+    background-color: hsla(0,0%,70%,.4);
+}
+
+.menu-sepia .menu-button:enabled:active {
+    background-color: hsla(240,5%,5%,.15);
+}
+
+.menu-sepia .menu-label {
     background-color: #edecf0;
 }
