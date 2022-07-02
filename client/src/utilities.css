@@ -30,7 +30,8 @@ h2 {
 }
 
 body {
-    font-family: "Segoe UI", "San Francisco", "Arial", sans-serif;
+    margin: 0px;
+    font-family: "Helvetica", "Arial", sans-serif;
 }
 
 p {

@@ -320,7 +320,7 @@ function Reader(props) {
 
     return (
         <div
-            className={"reader-container reader-container-" + props.colorScheme}
+            className={`reader-container reader-container-${props.colorScheme} reader-container-${props.serif ? "serif" : "sans-serif"}`}
             style={{
                 "fontSize": `${props.fontSize}px`,
                 "lineHeight": `${props.lineHeight}em`,

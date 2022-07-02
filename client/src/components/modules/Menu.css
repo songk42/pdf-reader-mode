@@ -1,0 +1,69 @@
+/* General */
+.menu-controls {
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.menu-button {
+    border: none;
+    border-radius: 0px;
+}
+
+.menu-fonts {
+    display: flex;
+}
+
+.menu-font p {
+    line-height: 1em;
+    font-size: 36px;
+    margin: 0;
+}
+
+.menu-sans-serif p {
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
+.menu-serif p {
+    font-family: "Georgia", serif;
+}
+
+.menu-light-button {
+    background-color: #fff;
+    color: #333;
+    border: none;
+}
+
+.menu-dark-button {
+    background-color: #5c5c61;
+    color: #eee;
+    border: none;
+}
+
+.menu-sepia-button {
+    background-color: #f4ecd8;
+    color: #5b4636;
+    border: none;
+}
+
+/* Light */
+.menu-light {
+    background-color: white;
+}
+
+.menu-light .menu-button {
+    background-color: #edecf0;
+}
+
+.menu-light .menu-button:enabled:hover {
+    background-color: hsla(0,0%,70%,.4);
+}
+
+.menu-light .menu-button:enabled:active {
+    background-color: hsla(240,5%,5%,.15);
+}
+
+.menu-light .menu-font-selected {
+    background-color: var(--blue-40-a30);
+}

@@ -4,8 +4,6 @@ import FileInput from "../modules/FileInput";
 import MenuContainer from "../modules/MenuContainer";
 import Reader from "../modules/Reader";
 
-import "./LandingPage.css";
-
 function LandingPage() {
     const [pdfObj, setPdfObj] = useState({"elements": []});
     const [colorScheme, setColorScheme] = useState("light");
@@ -13,22 +11,35 @@ function LandingPage() {
     const [lineHeight, setLineHeight] = useState(1.6);
     const [bodyWidth, setBodyWidth] = useState(30);
     const [serif, setSerif] = useState(false);
+    const [fsLabel, setFsLabel] = useState(3);
+    const [lhLabel, setLhLabel] = useState(4);
+    const [bwLabel, setBwLabel] = useState(3);
 
     return (
         <div
             id="landing"
-            className={`page-container-${colorScheme} page-container-${serif ? "serif" : "sans-serif"}`}>
+            className={`page-container page-container-${colorScheme}`}>
             <h1 className="landing-title">PDF Reader Mode</h1>
             <FileInput urlInput={true} setPdfObj={setPdfObj} />
             <MenuContainer
+                colorScheme={colorScheme}
+                setColorScheme={setColorScheme}
                 setFontSize={setFontSize}
                 setLineHeight={setLineHeight}
                 setBodyWidth={setBodyWidth}
+                serif={serif}
                 setSerif={setSerif}
+                fsLabel={fsLabel}
+                lhLabel={lhLabel}
+                bwLabel={bwLabel}
+                setFsLabel={setFsLabel}
+                setLhLabel={setLhLabel}
+                setBwLabel={setBwLabel}
             />
             <Reader
                 pdfObj={pdfObj}
                 colorScheme={colorScheme}
+                serif={serif}
                 fontSize={fontSize}
                 lineHeight={lineHeight}
                 bodyWidth={bodyWidth}

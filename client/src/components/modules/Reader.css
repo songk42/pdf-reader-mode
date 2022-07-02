@@ -3,7 +3,15 @@
     margin: auto;
 }
 
-/* Text styling */
+/* Font */
+.reader-container-serif {
+    font-family: "Georgia", serif;
+}
+
+.reader-container-sans-serif {
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
 .italic {
     font-style: italic;
 }

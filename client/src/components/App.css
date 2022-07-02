@@ -1,4 +1,15 @@
 /* General */
+.page-container {
+    margin: 0;
+    padding: 8px;
+}
+
+.landing-title {
+    font-size: 36px;
+    margin: 0;
+    padding: 24px 0;
+}
+
 .hover-label {
     visibility: hidden;
     background-color: black;
@@ -7,17 +18,7 @@
     z-index: 1001;
 }
 
-/* Font */
-.page-container-serif {
-    font-family: "Georgia", serif;
-}
-
-.page-container-sans-serif {
-    font-family: "Helvetica", "Arial", sans-serif;
-}
-
 /* Light */
-
 .page-container-light {
     background-color: #fff;
     color: #333;
@@ -31,9 +32,7 @@
     color: #8a0161;
 }
 
-
 /* Dark */
-
 .page-container-dark {
     background-color: rgb(28, 27, 34);
     color: #eee;
@@ -45,4 +44,18 @@
 
 .page-container-dark a:visited {
     color: #e687fa;
+}
+
+/* Sepia */
+.page-container-sepia {
+    background-color: #f4ecd8;
+    color: #5b4636;
+}
+
+.page-container-sepia a {
+    color: var(--blue-60);
+}
+
+.page-container-sepia a:visited {
+    color: #8a0161;
 }
