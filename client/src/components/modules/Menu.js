@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
+import TextControl from "./TextControl";
 import ISans from "../../assets/sansserif.svg";
 import ISerif from "../../assets/serif.svg";
 import IMinus from "../../assets/minus.svg";
@@ -55,69 +56,24 @@ function Menu(props) {
                     <p>Aa</p>
                 </button>
             </div>
-            <div className="menu-text-control menu-font-size">
-                <button
-                    className="menu-button menu-text-smaller"
-                    onClick={(e) => changeFS(-1)}
-                    disabled={props.fsLabel <= 1}
-                    style={{
-                        backgroundImage: `url(${IMinus})`
-                    }}
-                >
-                </button>
-                <span className="menu-label">{props.fsLabel}</span>
-                <button
-                    className="menu-button menu-text-larger"
-                    onClick={(e) => changeFS(1)}
-                    disabled={props.fsLabel >= fsDict.length - 1}
-                    style={{
-                        backgroundImage: `url(${IPlus})`
-                    }}
-                >
-                </button>
-            </div>
-            <div className="menu-text-control menu-body-width">
-                <button
-                    className="menu-button menu-text-smaller"
-                    onClick={(e) => changeBW(-1)}
-                    disabled={props.bwLabel <= 1}
-                    style={{
-                        backgroundImage: `url(${INarrower})`
-                    }}
-                >
-                </button>
-                <span className="menu-label">{props.bwLabel}</span>
-                <button
-                    className="menu-button menu-text-larger"
-                    onClick={(e) => changeBW(1)}
-                    disabled={props.bwLabel >= bwDict.length - 1}
-                    style={{
-                        backgroundImage: `url(${IWider})`
-                    }}
-                >
-                </button>
-            </div>
-            <div className="menu-text-control menu-line-height">
-                <button
-                    className="menu-button menu-text-smaller"
-                    onClick={(e) => changeLH(-1)}
-                    disabled={props.lhLabel <= 1}
-                    style={{
-                        backgroundImage: `url(${ICloser})`
-                    }}
-                >
-                </button>
-                <span className="menu-label">{props.lhLabel}</span>
-                <button
-                    className="menu-button menu-text-larger"
-                    onClick={(e) => changeLH(1)}
-                    disabled={props.lhLabel >= lhDict.length - 1}
-                    style={{
-                        backgroundImage: `url(${IFarther})`
-                    }}
-                >
-                </button>
-            </div>
+            <TextControl
+                num={props.fsLabel}
+                increment={changeFS}
+                styleSmall={{ backgroundImage: `url(${IMinus})` }}
+                styleLarge={{ backgroundImage: `url(${IPlus})` }}
+            />
+            <TextControl
+                num={props.bwLabel}
+                increment={changeBW}
+                styleSmall={{ backgroundImage: `url(${INarrower})` }}
+                styleLarge={{ backgroundImage: `url(${IWider})` }}
+            />
+            <TextControl
+                num={props.lhLabel}
+                increment={changeLH}
+                styleSmall={{ backgroundImage: `url(${ICloser})` }}
+                styleLarge={{ backgroundImage: `url(${IFarther})` }}
+            />
             <div className="menu-color-scheme">
                 <button
                     className="menu-color menu-light-button"
