@@ -1,13 +1,13 @@
 :root {
-    --popup-border: rgba(0, 0, 0, 0.12);
+    --popup-border: rgba(0, 0, 0, 0.45);
     --opaque-popup-border: #e0e0e0;
     --popup-shadow: rgba(49, 49, 49, 0.3);
     --grey-90-a10: rgba(12, 12, 13, 0.1);
     --grey-90-a20: rgba(12, 12, 13, 0.2);
     --grey-90-a30: rgba(12, 12, 13, 0.3);
     --grey-90-a80: rgba(12, 12, 13, 0.8);
-    --grey-30: #d7d7db;
-    --blue-40: #45a1ff;
+    --grey-30: #94949E;
+    --blue-40: #2994FF;
     --blue-40-a30: rgba(69, 161, 255, 0.3);
     --blue-60: #024db0;
 }

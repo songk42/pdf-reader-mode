@@ -66,7 +66,7 @@
     height: 60px;
     background-size: 54px 32px;
     background-position: center 22px;
-    border: 2px solid rgba(0, 0, 0, 0.12);
+    border: 2px solid var(--popup-border);
 }
 
 .menu-font label {
@@ -87,7 +87,7 @@
 
 .menu-font-selected {
     background-color: var(--blue-40-a30) !important;
-    border-color: var(--blue-40);
+    border-color: var(--blue-40) !important;
 }
 
 .menu-sans-serif p {
@@ -125,7 +125,7 @@
 .menu-color {
     width: 60px;
     height: 40px;
-    border: 2px solid rgba(0, 0, 0, 0.12) !important;
+    border: 2px solid var(--popup-border) !important;
 }
 
 .menu-color-selected {
@@ -158,7 +158,7 @@
 
 .page-container-light .menu-toggle {
     background-color: white;
-    border: 2px solid rgba(0, 0, 0, 0.12);
+    border: 2px solid var(--popup-border);
 }
 
 .page-container-light .menu-toggle:hover {
@@ -189,26 +189,36 @@
 
 /* Dark */
 .menu-dark {
-    background-color: rgb(66,65,77);
+    background-color: #42414d;
     color: #eee;
+}
+
+.page-container-dark .menu-toggle {
+    background-color: #42414d;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+}
+
+.page-container-dark .menu-toggle:hover {
+    background-color: hsla(0,0%,70%,.4);
 }
 
 .menu-dark .menu-fonts,
 .menu-dark .menu-text-control {
-    border-bottom: 1px solid rgb(82, 82, 94);
+    border-bottom: 1px solid #a0a0ac;
 }
 
 .menu-dark .menu-font {
     background-color: #5c5c61;
     color: #eee;
+    border: 2px solid rgba(255, 255, 255, 0.45);
 }
 
 .menu-dark .menu-button:enabled:hover {
-    background-color: var(--grey-90-a30);
+    background-color: hsla(0,0%,70%,.4);
 }
 
 .menu-dark .menu-button:enabled:active {
-    background-color: var(--grey-90-a80);
+    background-color: hsla(0,0%,70%,.6);
 }
 
 .menu-dark .menu-label {
@@ -219,6 +229,15 @@
 .menu-sepia {
     background-color: white;
     color: #333;
+}
+
+.page-container-sepia .menu-toggle {
+    background-color: #f4ecd8;
+    border: 2px solid var(--popup-border);
+}
+
+.page-container-sepia .menu-toggle:hover {
+    background-color: hsla(0,0%,70%,.4);
 }
 
 .menu-sepia .menu-fonts,

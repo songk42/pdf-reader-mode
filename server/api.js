@@ -94,9 +94,13 @@ function extractJSON(infile, callback) {
                     zipfile.on("end", (res3) => {
                         zipfile.close();
                         console.log("Unzipped");
-                        const pdfObj = JSON.parse(fs.readFileSync(path.resolve(outputdir, "structuredData.json"), 'utf8'));
-                        console.log("JS object created")
-                        callback(pdfObj);
+                        fs.unlink(path.resolve(outputdir, zipname), (err) => {
+                            if (err) throw err;
+                            console.log("Zip file deleted");
+                            const pdfObj = JSON.parse(fs.readFileSync(path.resolve(outputdir, "structuredData.json"), 'utf8'));
+                            console.log("JS object created")
+                            callback(pdfObj);
+                        })
                     })
                 });
             });

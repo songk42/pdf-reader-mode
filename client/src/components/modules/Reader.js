@@ -132,7 +132,7 @@ function Reader(props) {
         if (last.slice(0, 2) == "TH") {
             return <th className={classes}>{content}</th>;
         }
-        if (last.slice(0, 2) == "TH") {
+        if (last.slice(0, 2) == "TD") {
             return <td className={classes}>{content}</td>;
         }
         if (last.slice(0, 3) == "Sub") {
@@ -145,7 +145,11 @@ function Reader(props) {
             return <aside className={classes}>{content}</aside>;
         }
         if (last.slice(0, 6) == "Figure") {
-            return <img src={`/home/skim52/pdf-io/output/${element.filePaths[0]}`}></img>; // this is hard-coded for now
+            let path = element.filePaths[0];
+            if (path.slice(0, 7) == "figure/") {
+                path = "figures/" + path.slice(7);
+            }
+            // return <img src={require(`./../../../../../pdf-io/output/${path}`).default}></img>; // this is hard-coded for now
         }
         return <div className={classes}>{content}</div>;
     }
@@ -307,8 +311,8 @@ function Reader(props) {
                 "lineHeight": `${props.lineHeight}em`,
                 "width": `${props.bodyWidth}em`
             }}>
-            {tmpObj.elements.map((e) => renderElement(e))}
-            {/* {props.pdfObj.elements.map((e) => renderElement(e))} */}
+            {/* {tmpObj.elements.map((e) => renderElement(e))} */}
+            {props.pdfObj.elements.map((e) => renderElement(e))}
         </div>
     );
 }
