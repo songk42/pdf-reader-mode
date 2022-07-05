@@ -28,7 +28,7 @@ function Menu(props) {
 
     const fsDict = [-1, 12, 14, 16, 18, 20, 22, 24, 26, 28, 32, 40, 56, 60, 72, 96, 128]
     const lhDict = [-1, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6]
-    const bwDict = [-1, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+    const bwDict = [-1, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90];
 
     function changeFS(inc) {
         if (!((props.fsLabel == 1 && inc == -1) || (props.fsLabel == fsDict.length-1 && inc == 1))) {
@@ -70,18 +70,24 @@ function Menu(props) {
                 increment={changeFS}
                 bgSmall={props.colorScheme=="dark" ? IMinusLight : IMinus}
                 bgLarge={props.colorScheme=="dark" ? IPlusLight : IPlus}
+                hoverSmall="Decrease font size"
+                hoverLarge="Increase font size"
             />
             <TextControl
                 num={props.bwLabel}
                 increment={changeBW}
                 bgSmall={props.colorScheme=="dark" ? INarrowerLight : INarrower}
                 bgLarge={props.colorScheme=="dark" ? IWiderLight : IWider}
+                hoverSmall="Decrease content width"
+                hoverLarge="Increase content width"
             />
             <TextControl
                 num={props.lhLabel}
                 increment={changeLH}
                 bgSmall={props.colorScheme=="dark" ? ICloserLight : ICloser}
                 bgLarge={props.colorScheme=="dark" ? IFartherLight : IFarther}
+                hoverSmall="Decrease line height"
+                hoverLarge="Increase line height"
             />
             <div className="menu-color-scheme">
                 <ColorControl

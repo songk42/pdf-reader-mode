@@ -10,6 +10,7 @@ function TextControl(props) {
                 onClick={(e) => props.increment(-1)}
                 disabled={props.num <= 1}
                 style={{ backgroundImage: `url(${props.bgSmall})` }}
+                title={props.hoverSmall}
             >
             </button>
             <span className="menu-label">{props.num}</span>
@@ -18,6 +19,7 @@ function TextControl(props) {
                 onClick={(e) => props.increment(1)}
                 disabled={props.num >= props.max - 1}
                 style={{ backgroundImage: `url(${props.bgLarge})` }}
+                title={props.hoverLarge}
             >
             </button>
         </div>

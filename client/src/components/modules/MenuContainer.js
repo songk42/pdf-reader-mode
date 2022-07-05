@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 import Menu from "./Menu";
 
+import ISans from "../../assets/sansserif.svg";
+import ISansLight from "../../assets/sansserif-light.svg";
+
 import "./Menu.css";
 
 function MenuContainer(props) {
@@ -12,10 +15,12 @@ function MenuContainer(props) {
         <div className="menu-container">
             <button
                 className="menu-toggle"
+                style={{
+                    backgroundImage: `url(${props.colorScheme=="dark" ? ISansLight : ISans})`
+                }}
                 onClick={(e) => setMenu(!showMenu)}
+                title="Type controls"
             >
-                Aa
-                {/* <span class="hover-label">Type controls</span> */}
             </button>
             {showMenu ? 
             <Menu

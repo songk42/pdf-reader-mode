@@ -1,6 +1,7 @@
 /* General */
 .reader-container {
     margin: auto;
+    z-index: 1;
 }
 
 /* Font */
