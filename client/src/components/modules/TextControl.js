@@ -9,7 +9,7 @@ function TextControl(props) {
                 className="menu-button menu-text-smaller"
                 onClick={(e) => props.increment(-1)}
                 disabled={props.num <= 1}
-                style={props.styleSmall}
+                style={{ backgroundImage: `url(${props.bgSmall})` }}
             >
             </button>
             <span className="menu-label">{props.num}</span>
@@ -17,7 +17,7 @@ function TextControl(props) {
                 className="menu-button menu-text-larger"
                 onClick={(e) => props.increment(1)}
                 disabled={props.num >= props.max - 1}
-                style={props.styleLarge}
+                style={{ backgroundImage: `url(${props.bgLarge})` }}
             >
             </button>
         </div>

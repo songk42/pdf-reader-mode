@@ -81,7 +81,6 @@ function Reader(props) {
             last = path[path.length - 2];
         }
         if (last.slice(0, 10) == "HyphenSpan") {
-            return <span className={classes}>{content}</span>;
         }
         if (last.slice(0, 5) == "Title") {
             return <h1 className={classes + " title-text"}>{content}</h1>; // but add "title" class
@@ -273,26 +272,8 @@ function Reader(props) {
                             "monospaced": false,
                             "weight": 400
                         },
-                        "Path": "//Document/P[2]/HyphenSpan",
-                        "Text": "-",
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 400
-                        },
                         "Path": "//Document/P[2]",
                         "Text": "desirablebehavior.WeproposeaProcessforAdaptingLanguageModelstoSociety(PALMS)withValues-TargetedDatasets,aniterativeprocesstosigniﬁcantlychangemodelbehaviorbycraftingandﬁne-tuningonadatasetthatreﬂectsapredeterminedsetoftargetvalues.Weevaluateourprocessusingthreemetrics:quantitativemetricswithhumanevaluationsthatscoreoutputadherencetoatargetvalue,andtoxicityscoringonout",
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 400
-                        },
-                        "Path": "//Document/P[2]/HyphenSpan[2]",
-                        "Text": "-",
                     },
                     {
                         "Font": {

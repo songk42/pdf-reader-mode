@@ -12,9 +12,6 @@
     --blue-40-a30: rgba(69, 161, 255, 0.3);
     --blue-60: #024db0;
     --active-color: #0B83FF;
-    --font-size: 12;
-    --content-width: 22em;
-    --line-height: 1.6em;
     --tooltip-background: var(--grey-90-a80);
     --tooltip-foreground: white;
     --toolbar-button-hover: var(--grey-90-a10);

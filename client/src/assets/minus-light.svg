@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
-   sodipodi:docname="plus.svg"
+   sodipodi:docname="minus-light.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,9 +25,9 @@
      showgrid="false"
      units="px"
      width="16px"
-     inkscape:zoom="25.236964"
-     inkscape:cx="1.7632866"
-     inkscape:cy="10.460846"
+     inkscape:zoom="8.1836837"
+     inkscape:cx="-5.1932603"
+     inkscape:cy="18.451349"
      inkscape:window-width="1581"
      inkscape:window-height="902"
      inkscape:window-x="339"
@@ -41,14 +41,9 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:none;stroke:#333333;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#eeeeee;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 0.26458335,2.1166754 3.96875,2.1166579"
        id="path857"
-       sodipodi:nodetypes="cc" />
-    <path
-       style="fill:none;stroke:#333333;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 2.1166579,0.26458332 2.1166754,3.96875"
-       id="path1592"
        sodipodi:nodetypes="cc" />
   </g>
 </svg>

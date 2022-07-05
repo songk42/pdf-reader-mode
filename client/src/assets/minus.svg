@@ -26,11 +26,11 @@
      units="px"
      width="16px"
      inkscape:zoom="8.1836837"
-     inkscape:cx="12.769311"
-     inkscape:cy="18.451348"
+     inkscape:cx="-27.677023"
+     inkscape:cy="18.451349"
      inkscape:window-width="1581"
      inkscape:window-height="902"
-     inkscape:window-x="679"
+     inkscape:window-x="339"
      inkscape:window-y="106"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
@@ -41,7 +41,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#333333;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 0.26458335,2.1166754 3.96875,2.1166579"
        id="path857"
        sodipodi:nodetypes="cc" />

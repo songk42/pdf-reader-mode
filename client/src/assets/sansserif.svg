@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="26.587578"
+   width="27"
    height="16"
-   viewBox="0 0 7.0346296 4.2333335"
+   viewBox="0 0 7.1437496 4.2333335"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
@@ -26,13 +26,13 @@
      units="px"
      width="16px"
      inkscape:zoom="13.148569"
-     inkscape:cx="11.446112"
+     inkscape:cx="-13.765757"
      inkscape:cy="12.624948"
-     inkscape:window-width="1581"
-     inkscape:window-height="902"
-     inkscape:window-x="311"
-     inkscape:window-y="92"
-     inkscape:window-maximized="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="36"
+     inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -54,11 +54,11 @@
      transform="translate(1.8355379,-0.61902993)">
     <text
        xml:space="preserve"
-       transform="matrix(0.36494253,0,0,0.36494253,-2.0249659,-1.037678)"
+       transform="matrix(0.36494253,0,0,0.36494253,-1.9704059,-1.037678)"
        id="text5935"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Helvetica Now Text';-inkscape-font-specification:'Helvetica Now Text';letter-spacing:-0.5px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5937);fill:#000000;fill-opacity:1;stroke:none"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Helvetica Now Text';-inkscape-font-specification:'Helvetica Now Text';letter-spacing:-0.5px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5937);fill:#333333;fill-opacity:1;stroke:none"><tspan
          x="0.0390625"
          y="15.931641"
-         id="tspan12531">Aa</tspan></text>
+         id="tspan1223">Aa</tspan></text>
   </g>
 </svg>
