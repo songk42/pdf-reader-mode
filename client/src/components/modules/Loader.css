@@ -1,0 +1,47 @@
+.loader-container {
+    margin: auto;
+    font-size: 18px;
+    text-align: center;
+}
+
+.loader {
+    width: 72px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.loader-bubble {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.page-container-light .loader-bubble {
+    background-color: #333;
+}
+
+.page-container-dark .loader-bubble {
+    background-color: #eee;
+}
+
+.page-container-sepia .loader-bubble {
+    background-color: #5b4636;
+}
+
+.loader-bubble-2 {
+    animation-delay: 400ms;
+}
+
+.loader-bubble-3 {
+    animation-delay: 800ms;
+}
+
+@keyframes pulse {
+    0% {transform: scale(0);}
+    50% {transform: scale(1);}
+    100% {transform: scale(0);}
+}

@@ -1,5 +1,7 @@
 import React from "react";
 
+import Loader from "./Loader";
+
 import "./Reader.css";
 
 function Reader(props) {
@@ -303,6 +305,19 @@ function Reader(props) {
         ]
     };
 
+    if (props.loading) {
+        return (
+            <div
+                className={`reader-container reader-container-${props.colorScheme} reader-container-${props.serif ? "serif" : "sans-serif"}`}
+                style={{
+                    "fontSize": `${props.fontSize}px`,
+                    "lineHeight": `${props.lineHeight}em`,
+                    "width": `${props.bodyWidth}em`
+                }}>
+                <Loader />
+            </div>
+        );
+    }
     return (
         <div
             className={`reader-container reader-container-${props.colorScheme} reader-container-${props.serif ? "serif" : "sans-serif"}`}

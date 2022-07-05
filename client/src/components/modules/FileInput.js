@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 import { get } from "../../utilities";
 
@@ -8,6 +7,7 @@ function FileInput(props) {
     const fileList = React.createRef();
 
     function handleSubmit(event) {
+        props.setLoading(true);
         // let file = fileList.current.files[0];
         const apiInput = {
             // fileurl: URL.createObjectURL(file),
@@ -19,6 +19,7 @@ function FileInput(props) {
         // }
         get(apiCall, apiInput).then((pdfObj) => {
             props.setPdfObj(pdfObj);
+            props.setLoading(false);
         });
 
         event.preventDefault();

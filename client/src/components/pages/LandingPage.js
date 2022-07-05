@@ -6,6 +6,7 @@ import Reader from "../modules/Reader";
 
 function LandingPage() {
     const [pdfObj, setPdfObj] = useState({"elements": []});
+
     const [colorScheme, setColorScheme] = useState("light");
     const [fontSize, setFontSize] = useState(16);
     const [lineHeight, setLineHeight] = useState(1.6);
@@ -15,12 +16,18 @@ function LandingPage() {
     const [lhLabel, setLhLabel] = useState(4);
     const [bwLabel, setBwLabel] = useState(3);
 
+    const [loading, setLoading] = useState(false);
+
     return (
         <div
             id="landing"
             className={`page-container page-container-${colorScheme}`}>
             <h1 className="landing-title">PDF Reader Mode</h1>
-            <FileInput urlInput={true} setPdfObj={setPdfObj} />
+            <FileInput
+                urlInput={true}
+                setPdfObj={setPdfObj}
+                setLoading={setLoading}
+            />
             <MenuContainer
                 colorScheme={colorScheme}
                 setColorScheme={setColorScheme}
@@ -43,6 +50,7 @@ function LandingPage() {
                 fontSize={fontSize}
                 lineHeight={lineHeight}
                 bodyWidth={bodyWidth}
+                loading={loading}
             />
         </div>
     );
