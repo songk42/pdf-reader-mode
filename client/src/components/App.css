@@ -1,7 +1,12 @@
 /* General */
+.root-page-container {
+    height: 100%;
+}
+
 .page-container {
     margin: 0;
-    padding: 8px;
+    padding: 0px 8px;
+    min-height: 100%;
 }
 
 .landing-title {

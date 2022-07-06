@@ -7,8 +7,6 @@ import "./App.css";
 import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound";
 
-import { get, post, isEmpty } from "../utilities";
-
 function App() {
     return (
         <div className="root-page-container">

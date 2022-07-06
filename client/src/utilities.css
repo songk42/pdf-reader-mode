@@ -27,7 +27,12 @@ h3 {
     line-height: 1.66em;
 }
 
+html {
+    height: 100%;
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
 body {
     margin: 0px;
-    font-family: "Helvetica", "Arial", sans-serif;
+    height: 100%;
 }
