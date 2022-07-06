@@ -58,7 +58,8 @@
 .menu-fonts {
     display: flex;
     justify-content: space-around;
-    padding: 8px 0px;
+    padding-top: 8px;
+    padding-bottom: 4px;
 }
 
 .menu-font {
@@ -67,6 +68,16 @@
     background-size: 54px 32px;
     background-position: center 22px;
     border: 2px solid var(--popup-border);
+}
+
+.menu-font-underline {
+    width: 100px;
+    height: 2px;
+    margin-top: 2px;
+}
+
+.menu-font:hover ~ .menu-font-underline {
+    background-color: var(--blue-40);
 }
 
 .menu-font label {
@@ -119,7 +130,8 @@
 .menu-color-scheme {
     display: flex;
     justify-content: space-around;
-    padding: 8px 0px;
+    padding-top: 8px;
+    padding-bottom: 4px;
 }
 
 .menu-color {
@@ -130,6 +142,16 @@
 
 .menu-color-selected {
     border-color: var(--blue-40) !important;
+}
+
+.menu-color-underline {
+    width: 60px;
+    height: 2px;
+    margin-top: 2px;
+}
+
+.menu-color:hover ~ .menu-color-underline {
+    background-color: var(--blue-40);
 }
 
 .menu-light-button {
