@@ -17,8 +17,9 @@ function FileInput(props) {
         // if (fileURL == "") {
         //     apiCall = "/api/getfromfile"
         // }
-        get(apiCall, apiInput).then((pdfObj) => {
-            props.setPdfObj(pdfObj);
+        get(apiCall, apiInput).then((res) => {
+            props.setPdfObj(res.pdf);
+            props.setOutputDir(res.outputdir);
             props.setLoading(false);
         });
 

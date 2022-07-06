@@ -35,7 +35,7 @@ function isEmpty(obj) {
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
 
-function extractJSON(infile, callback) {
+function extractJSON(infile, outputdir, callback) {
     // ExtractPDF params
     const credentials = PDFServicesSdk.Credentials
         .serviceAccountCredentialsBuilder()
@@ -59,7 +59,6 @@ function extractJSON(infile, callback) {
     // Extract
     extractPDFOperation.execute(executionContext)
         .then((res1) => {
-            const outputdir = path.resolve(__dirname, "../../pdf-io/output");
             const zipname = "text-table-style-info.zip";
             // Save to temporary zip file
             res1.saveAsFile(path.join(outputdir, zipname)).then((res2) => {
@@ -99,7 +98,10 @@ function extractJSON(infile, callback) {
                             console.log("Zip file deleted");
                             const pdfObj = JSON.parse(fs.readFileSync(path.resolve(outputdir, "structuredData.json"), 'utf8'));
                             console.log("JS object created")
-                            callback(pdfObj);
+                            callback({
+                                outputdir: outputdir,
+                                pdf: pdfObj
+                            });
                         })
                     })
                 });
@@ -109,21 +111,24 @@ function extractJSON(infile, callback) {
 
 router.get("/getfromurl", (req, res) => {
     try {
-        // Download PDF from url first
-        const inputdir = path.resolve(__dirname, "../../pdf-io/input");
-        const fname = "input.pdf";
-        const dl = new DownloaderHelper(req.query.fileurl, inputdir, {
-            headers: { 'Content-Type': 'text/pdf' },
-            fileName: fname
-        });
-        dl.on('end', () => {
-            console.log("File downloaded");
-            extractJSON(`${inputdir}${path.sep}${fname}`, (pdfObj) => {
-                res.send(pdfObj);
+        // make temporary directory
+        fs.mkdtemp(path.join(os.tmpdir(), 'prm-'), (err, folder) => {
+            if (err) throw err;
+            // Download PDF from url first
+            const fname = "input.pdf";
+            const dl = new DownloaderHelper(req.query.fileurl, folder, {
+                headers: { 'Content-Type': 'text/pdf' },
+                fileName: fname
             });
+            dl.on('end', () => {
+                console.log("File downloaded");
+                extractJSON(path.join(folder, fname), folder, (pdfObj) => {
+                    res.send(pdfObj);
+                });
+            });
+            dl.on('error', (err) => console.log("Download failed: ", err.message));
+            dl.start().catch(err => console.error(err));
         });
-        dl.on('error', (err) => console.log("Download failed: ", err.message));
-        dl.start().catch(err => console.error(err));
     } catch (err) {
         console.log('Exception encountered while executing operation', err);
     }

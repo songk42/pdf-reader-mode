@@ -5,6 +5,7 @@ import MenuContainer from "../modules/MenuContainer";
 import Reader from "../modules/Reader";
 
 function LandingPage() {
+    const [outputdir, setOutputDir] = useState("");
     const [pdfObj, setPdfObj] = useState({"elements": []});
 
     const [colorScheme, setColorScheme] = useState("light");
@@ -27,6 +28,7 @@ function LandingPage() {
                 urlInput={true}
                 setPdfObj={setPdfObj}
                 setLoading={setLoading}
+                setOutputDir={setOutputDir}
             />
             <MenuContainer
                 colorScheme={colorScheme}
