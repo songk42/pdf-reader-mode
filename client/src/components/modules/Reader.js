@@ -35,7 +35,7 @@ function Reader(props) {
                     content.push(<span className={classes}>{newContent}</span>);
                 }
                 else if (kid.Path.includes("Sub")) {
-                    content.push(<div className={classes + " newline"}>{newContent}</div>);
+                    content.push(<span className={classes + " newline"}>{newContent}<br /></span>);
                 }
                 else {
                     content.push(newContent);
@@ -123,20 +123,6 @@ function Reader(props) {
         if (last[0] == "L") {
             return <ul className={classes}>{content}</ul>;
         }
-        if (last.slice(0, 5) == "Table") {
-            // return <table className={classes}>{content}</table>;
-            return <img src={`/home/skim52/pdf-io/output/${element.filePaths[0]}`}></img>; // this is hard-coded for now
-            // I dislike this for accessibility reasons
-        }
-        if (last.slice(0, 2) == "TR") {
-            return <tr className={classes}>{content}</tr>;
-        }
-        if (last.slice(0, 2) == "TH") {
-            return <th className={classes}>{content}</th>;
-        }
-        if (last.slice(0, 2) == "TD") {
-            return <td className={classes}>{content}</td>;
-        }
         if (last.slice(0, 3) == "Sub") {
             return <p className={classes}>{content}</p>;
         }
@@ -156,6 +142,85 @@ function Reader(props) {
         return <div className={classes}>{content}</div>;
     }
 
+    function getPageContent() {
+        let pageContent = []
+        let table = []
+        let row = [];
+        let cell = [];
+        let rowLabel = "TR";
+        let cellLabel = "TH";
+        for (const obj of props.pdfObj.elements) {
+            var path = obj.Path.split("/");
+            if (path.length > 3 && path[3].slice(0, 5) == "Table") {
+                let last = path[path.length - 1];
+                if (last.slice(0, 5) == "Table") {
+                    if (table.length > 0) {
+                        pageContent.push(<table><tbody>{table}</tbody></table>);
+                        table = [];
+                    }
+                }
+                else {
+                    if (path.length > 5 && path[5] != cellLabel) {
+                        if (cellLabel[1] == "H") {
+                            row.push(<th>{cell}</th>);
+                        }
+                        else if (cellLabel[1] == "D") {
+                            row.push(<td>{cell}</td>);
+                        }
+                        cellLabel = path[5];
+                        cell = [];
+                    }
+                    if (path.length > 4 && path[4] != rowLabel) {
+                        rowLabel = path[4];
+                        table.push(<tr>{row}</tr>)
+                        row = [];
+                    }
+                    if (last.slice(0, 2) != "TD" && last.slice(0, 2) != "TH") {
+                        cell.push(renderElement(obj));
+                    }
+                }
+            }
+            else {
+                if (cell.length > 0) {
+                    if (cellLabel[1] == "H") {
+                        row.push(<th>{cell}</th>);
+                    }
+                    else if (cellLabel[1] == "D") {
+                        row.push(<td>{cell}</td>);
+                    }
+                    cell = [];
+                }
+                if (row.length > 0) {
+                    table.push(<tr>{row}</tr>);
+                    row = [];
+                }
+                if (table.length > 0) {
+                    pageContent.push(<table><tbody>{table}</tbody></table>);
+                    table = [];
+                }
+                pageContent.push(renderElement(obj));
+            }
+        }
+        if (cell.length > 0) {
+            if (cellLabel[1] == "H") {
+                row.push(<th>{cell}</th>);
+            }
+            else if (cellLabel[1] == "D") {
+                row.push(<td>{cell}</td>);
+            }
+            cell = [];
+        }
+        if (row.length > 0) {
+            table.push(<tr>{row}</tr>);
+            row = [];
+        }
+        if (table.length > 0) {
+            pageContent.push(<table><tbody>{table}</tbody></table>);
+            table = [];
+        }
+        return pageContent;
+    }
+    
     const tmpObj = {
         "elements": [
             {
@@ -318,6 +383,7 @@ function Reader(props) {
             </div>
         );
     }
+
     return (
         <div
             className={`reader-container reader-container-${props.colorScheme} reader-container-${props.serif ? "serif" : "sans-serif"}`}
@@ -327,7 +393,7 @@ function Reader(props) {
                 "width": `${props.bodyWidth}em`
             }}>
             {/* {tmpObj.elements.map((e) => renderElement(e))} */}
-            {props.pdfObj.elements.map((e) => renderElement(e))}
+            {getPageContent()}
         </div>
     );
 }

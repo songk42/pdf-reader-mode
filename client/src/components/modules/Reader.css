@@ -60,3 +60,20 @@
 .newline {
     white-space: pre-line;
 }
+
+/* Tables */
+table {
+    overflow-x: scroll;
+    display: block;
+}
+
+table, th, td {
+    border: 1px solid currentColor;
+    border-collapse: collapse;
+    padding: 6px;
+    vertical-align: top;
+}
+
+th {
+    font-weight: bold;
+}

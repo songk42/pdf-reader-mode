@@ -13,8 +13,8 @@
 }
 
 .loader-bubble {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     transform: scale(0);
     animation: pulse 2s infinite ease-in-out;
