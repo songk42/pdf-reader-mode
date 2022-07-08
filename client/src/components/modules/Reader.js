@@ -17,7 +17,6 @@ function Reader(props) {
         return classes.join(" ");
     }
     function handleKids(kids, ppath) {
-        const plen = ppath.length;
         let content = [];
         for (var kid of kids) {
             let classes = "";
@@ -36,6 +35,9 @@ function Reader(props) {
                 }
                 else if (kid.Path.includes("Sub")) {
                     content.push(<span className={classes + " newline"}>{newContent}<br /></span>);
+                }
+                else if (kid.Path.includes("/LBody")) {
+                    content.push(<li className={classes}>{content}</li>);
                 }
                 else {
                     content.push(newContent);
@@ -117,10 +119,10 @@ function Reader(props) {
         if (last.slice(0, 4) == "Foot") {
             return <p className={classes + " footnote"}>{content}</p>;
         }
-        if (last.slice(0, 5) == "Lbody") {
+        if (last.slice(0, 5) == "LBody") {
             return <li className={classes}>{content}</li>;
         }
-        if (last[0] == "L") {
+        if (last[0] == "L" || (last.length > 1 && last.slice(0, 2) == "L[")) {
             return <ul className={classes}>{content}</ul>;
         }
         if (last.slice(0, 3) == "Sub") {
@@ -151,12 +153,15 @@ function Reader(props) {
         let cellLabel = "TH";
         for (const obj of props.pdfObj.elements) {
             var path = obj.Path.split("/");
+            // process tables separately
             if (path.length > 3 && path[3].slice(0, 5) == "Table") {
                 let last = path[path.length - 1];
                 if (last.slice(0, 5) == "Table") {
                     if (table.length > 0) {
                         pageContent.push(<table><tbody>{table}</tbody></table>);
                         table = [];
+                        rowLabel = "TR";
+                        cellLabel = "TH";
                     }
                 }
                 else {
@@ -181,6 +186,7 @@ function Reader(props) {
                 }
             }
             else {
+                // residual table processing/adding
                 if (cell.length > 0) {
                     if (cellLabel[1] == "H") {
                         row.push(<th>{cell}</th>);
@@ -197,6 +203,8 @@ function Reader(props) {
                 if (table.length > 0) {
                     pageContent.push(<table><tbody>{table}</tbody></table>);
                     table = [];
+                    rowLabel = "TR";
+                    cellLabel = "TH";
                 }
                 pageContent.push(renderElement(obj));
             }
@@ -217,158 +225,11 @@ function Reader(props) {
         if (table.length > 0) {
             pageContent.push(<table><tbody>{table}</tbody></table>);
             table = [];
+            rowLabel = "TR";
+            cellLabel = "TH";
         }
         return pageContent;
     }
-    
-    const tmpObj = {
-        "elements": [
-            {
-                "Font": {
-                    "italic": false,
-                    "monospaced": false,
-                    "weight": 700
-                },
-                "Path": "//Document/Title",
-                "Text": "Process for Adapting Language Models to Society (PALMS) with Values-Targeted Datasets ",
-            },
-            {
-                "Kids": [
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 700
-                        },
-                        "Path": "//Document/P/ParagraphSpan/Sub",
-                        "Text": "IreneSolaiman",
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 400
-                        },
-                        "Path": "//Document/P/ParagraphSpan/Sub/Reference",
-                        "Text": "∗ ",
-                        "attributes": {
-                            "BaselineShift": 3.625,
-                            "TextPosition": "Sup"
-                        }
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 400
-                        },
-                        "Path": "//Document/P/ParagraphSpan/Sub[2]",
-                        "Text": "OpenAI",
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": true,
-                            "weight": 400
-                        },
-                        "Path": "//Document/P/ParagraphSpan/Sub[3]",
-                        "Text": "irene@openai.com ",
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 700
-                        },
-                        "Path": "//Document/P/ParagraphSpan[2]/Sub",
-                        "Text": "ChristyDennison",
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 400
-                        },
-                        "Path": "//Document/P/ParagraphSpan[2]/Sub/Reference",
-                        "Text": "∗ ",
-                        "attributes": {
-                            "BaselineShift": 3.625,
-                            "TextPosition": "Sup"
-                        }
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 400
-                        },
-                        "Path": "//Document/P/ParagraphSpan[2]/Sub[2]",
-                        "Text": "OpenAI",
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": true,
-                            "weight": 400
-                        },
-                        "Path": "//Document/P/ParagraphSpan[2]/Sub[3]",
-                        "Text": "christy@openai.com ",
-                    }
-                ],
-                "Path": "//Document/P",
-            },
-            {
-                "Font": {
-                    "italic": false,
-                    "monospaced": false,
-                    "weight": 700
-                },
-                "Path": "//Document/H1",
-                "Text": "Abstract ",
-            },
-            {
-                "Kids": [
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 400
-                        },
-                        "Path": "//Document/P[2]",
-                        "Text": "Languagemodelscangenerateharmfulandbiasedoutputsandexhibitun",
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 400
-                        },
-                        "Path": "//Document/P[2]",
-                        "Text": "desirablebehavior.WeproposeaProcessforAdaptingLanguageModelstoSociety(PALMS)withValues-TargetedDatasets,aniterativeprocesstosigniﬁcantlychangemodelbehaviorbycraftingandﬁne-tuningonadatasetthatreﬂectsapredeterminedsetoftargetvalues.Weevaluateourprocessusingthreemetrics:quantitativemetricswithhumanevaluationsthatscoreoutputadherencetoatargetvalue,andtoxicityscoringonout",
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 400
-                        },
-                        "Path": "//Document/P[2]",
-                        "Text": "puts;andqualitativemetricsanalyzingthemostcommonwordassociatedwithagivensocialcategory.Througheachiteration,weaddadditionaltrainingdatasetexamplesbasedonobservedshortcomingsfromevaluations.PALMSperformssigniﬁcantlybetteronallmetricscomparedtobaselineandcontrolmodelsforabroadrangeofGPT-3languagemodelsizeswith",
-                    },
-                    {
-                        "Font": {
-                            "italic": false,
-                            "monospaced": false,
-                            "weight": 400
-                        },
-                        "Path": "//Document/P[2]",
-                        "Text": "outcompromisingcapabilityintegrity.WeﬁndthattheeﬀectivenessofPALMSincreaseswithmodelsize.Weshowthatsigniﬁcantlyadjustinglanguagemodelbehaviorisfeasiblewithasmall,hand-curateddataset.",
-                    }
-                ],
-                "Path": "//Document/P[2]",
-            },
-        ]
-    };
 
     if (props.loading) {
         return (
