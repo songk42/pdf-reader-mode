@@ -82,6 +82,7 @@ function Reader(props) {
             last = path[path.length - 2];
         }
         if (last.slice(0, 10) == "HyphenSpan") {
+            return;
         }
         if (last.slice(0, 5) == "Title") {
             return <h1 className={classes + " title-text"}>{content}</h1>; // but add "title" class
@@ -107,6 +108,9 @@ function Reader(props) {
         if (last[0] == "P") {
             return <p className={classes}>{content}</p>;
         }
+        if (last.slice(0, 4) == "Span") {
+            return <span className={classes}>{content}</span>;
+        }
         if (last[0] == "R") {
             // if ("Reference" in element) {
             //     return <a className={classes} href={element.Reference}>{content}</a>;
@@ -116,7 +120,7 @@ function Reader(props) {
         if (last.slice(0, 4) == "Foot") {
             return <p className={classes + " footnote"}>{content}</p>;
         }
-        if (last.slice(0, 5) == "LBody") {
+        if (last.slice(0, 5) == "LBody" || last.slice(0, 3) == "Lbl") {
             return <span className={classes}>{content}</span>;
         }
         if (last[0] == "L" || (last.length > 1 && last.slice(0, 2) == "L[")) {
