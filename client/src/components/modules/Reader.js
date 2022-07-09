@@ -30,7 +30,7 @@ function Reader(props) {
                         else if (kid.attributes.TextPosition == "Sub") newContent = <sub>{newContent}</sub>;
                     }
                 }
-                if (kid.Path.includes("/Span")) {
+                if (kid.Path.includes("/Span") || kid.Path.includes("/StyleSpan")) {
                     content.push(<span className={classes}>{newContent}</span>);
                 }
                 else if (kid.Path.includes("Sub")) {
@@ -42,6 +42,50 @@ function Reader(props) {
             }
         }
         return content;
+    };
+
+    function handleList(kids, layer=1) {
+        // kids = array of JS objects
+        let list = []; // is there a way to determine ordered/unorderedness?
+        let listItem = [];
+        let nested = false;
+        let nestedItems = [];
+        // list processing
+        for (var i in kids) {
+            let currentLayer = kids[i].Path.match(/\/L\b|(\/L\[)/g).length;
+            if (nested) {
+                if (currentLayer == layer) {
+                    listItem.push(<ul>{handleList(nestedItems, layer+1)}</ul>);
+                    nestedItems = [];
+                    nested = false;
+                }
+                else {
+                    nestedItems.push(kids[i]);
+                }
+            }
+            else {
+                let kidPath = kids[i].Path.split('/');
+                if (currentLayer > layer) {
+                    nested = true;
+                    nestedItems.push(kids[i]);
+                }
+                else if (kidPath.length == 5 && kidPath[4].slice(0, 2) == "LI") {
+                    list.push(<li>{listItem}</li>);
+                    listItem = [];
+                }
+                // nested lists
+                // else if count("/L") > layer
+                // find the first time this ceases to be true
+                // then call handleList on that subset
+                else {
+                    listItem.push(renderElement(kids[i]));
+                }
+            }
+        }
+        if (listItem.length > 0) {
+            list.push(<li>{listItem}</li>);
+        }
+        return list;
     };
 
     function renderElement(element) {
@@ -105,17 +149,17 @@ function Reader(props) {
         if (last[0] == "H") {
             return <h1 className={classes}>{content}</h1>;
         }
-        if (last[0] == "P") {
+        if (last == "P" || (last.length > 1 && last.slice(0, 2) == "P[")) {
             return <p className={classes}>{content}</p>;
-        }
-        if (last.slice(0, 4) == "Span") {
-            return <span className={classes}>{content}</span>;
         }
         if (last[0] == "R") {
             // if ("Reference" in element) {
             //     return <a className={classes} href={element.Reference}>{content}</a>;
             // }
             return <a className={classes} href="#">{content}</a>;
+        }
+        if (last.includes("Span")) {
+            return <span className={classes}>{content}</span>;
         }
         if (last.slice(0, 4) == "Foot") {
             return <p className={classes + " footnote"}>{content}</p>;
@@ -145,14 +189,14 @@ function Reader(props) {
         return <div className={classes}>{content}</div>;
     }
 
-    function getPageContent() {
+    function getPageContent(mainObj) {
         let pageContent = []
         let table = []
         let row = [];
         let cell = [];
         let rowLabel = "TR";
         let cellLabel = "TH";
-        for (const obj of props.pdfObj.elements) {
+        for (const obj of mainObj.elements) {
             var path = obj.Path.split("/");
             // process tables separately
             if (path.length > 3 && path[3].slice(0, 5) == "Table") {
@@ -209,20 +253,7 @@ function Reader(props) {
                     rowLabel = "TR";
                     cellLabel = "TH";
                 }
-                let list = []; // is there a way to determine ordered/unorderedness?
-                let listItem = [];
-                // list processing
-                for (const kid of obj.Kids) {
-                    let kidPath = kid.Path.split('/');
-                    if (kidPath.length == 5 && kidPath[4].slice(0, 2) == "LI") {
-                        list.push(<li>{listItem}</li>);
-                        listItem = [];
-                    }
-                    else {
-                        listItem.push(renderElement(kid));
-                    }
-                }
-                pageContent.push(<ul>{list}</ul>);
+                pageContent.push(<ul>{handleList(obj.Kids)}</ul>);
             }
             // everything else
             else {
@@ -285,6 +316,111 @@ function Reader(props) {
         );
     }
 
+    // const tmpObj = {"elements": [{
+    //     "Kids": [
+    //         {
+    //             "Font": {
+    //                 "italic": true,
+    //                 "monospaced": false,
+    //                 "name": "ZRDUTU+LMRoman10-Italic",
+    //                 "subset": true,
+    //                 "weight": 400
+    //             },
+    //             "Path": "//Document/P[102]/Sub",
+    //             "Text": "values-targetedmodel",
+    //         },
+    //         {
+    //             "Font": {
+    //                 "italic": false,
+    //                 "monospaced": false,
+    //                 "name": "GIEDJN+LMRoman10-Regular",
+    //                 "subset": true,
+    //                 "weight": 400
+    //             },
+    //             "Path": "//Document/P[102]/Sub/Span",
+    //             "Text": ":Theregexis:",
+    //         },
+    //         {
+    //             "Font": {
+    //                 "italic": false,
+    //                 "monospaced": false,
+    //                 "name": "GIEDJN+LMRoman10-Regular",
+    //                 "subset": true,
+    //                 "weight": 400
+    //             },
+    //             "Path": "//Document/P[102]/Sub[2]",
+    //             "Text": "([0-9]3)?[0-9]3-[0-9]4",
+    //         },
+    //         {
+    //             "Font": {
+    //                 "italic": false,
+    //                 "monospaced": false,
+    //                 "name": "GIEDJN+LMRoman10-Regular",
+    //                 "subset": true,
+    //                 "weight": 400
+    //             },
+    //             "Path": "//Document/P[102]/Sub[3]",
+    //             "Text": "(?=[-]+|",
+    //         },
+    //         {
+    //             "Font": {
+    //                 "italic": false,
+    //                 "monospaced": false,
+    //                 "name": "GIEDJN+LMRoman10-Regular",
+    //                 "subset": true,
+    //                 "weight": 400
+    //             },
+    //             "Path": "//Document/P[102]/Sub[3]/StyleSpan",
+    //             "Text": "˙",
+    //         },
+    //         {
+    //             "Font": {
+    //                 "italic": false,
+    //                 "monospaced": false,
+    //                 "name": "GIEDJN+LMRoman10-Regular",
+    //                 "subset": true,
+    //                 "weight": 400
+    //             },
+    //             "Path": "//Document/P[102]/Sub[3]",
+    //             "Text": "|",
+    //         },
+    //         {
+    //             "Font": {
+    //                 "italic": false,
+    //                 "monospaced": false,
+    //                 "name": "GIEDJN+LMRoman10-Regular",
+    //                 "subset": true,
+    //                 "weight": 400
+    //             },
+    //             "Path": "//Document/P[102]/Sub[3]",
+    //             "Text": ")",
+    //         },
+    //         {
+    //             "Font": {
+    //                 "italic": false,
+    //                 "monospaced": false,
+    //                 "name": "GIEDJN+LMRoman10-Regular",
+    //                 "subset": true,
+    //                 "weight": 400
+    //             },
+    //             "Path": "//Document/P[102]/Sub[3]/StyleSpan[2]",
+    //             "Text": "˙",
+    //         },
+    //         {
+    //             "Font": {
+    //                 "italic": false,
+    //                 "monospaced": false,
+    //                 "name": "GIEDJN+LMRoman10-Regular",
+    //                 "subset": true,
+    //                 "weight": 400
+    //             },
+    //             "Path": "//Document/P[102]/Sub[4]",
+    //             "Text": "Thisregexwillmatchoursamplenumbers:",
+    //         }
+    //     ],
+    //     "Path": "//Document/P[102]",
+    // }]};
+
     return (
         <div
             className={`reader-container reader-container-${props.colorScheme} reader-container-${props.serif ? "serif" : "sans-serif"}`}
@@ -293,8 +429,8 @@ function Reader(props) {
                 "lineHeight": `${props.lineHeight}em`,
                 "width": `${props.bodyWidth}em`
             }}>
-            {/* {tmpObj.elements.map((e) => renderElement(e))} */}
-            {getPageContent()}
+            {/* {getPageContent(tmpObj)} */}
+            {getPageContent(props.pdfObj)}
         </div>
     );
 }

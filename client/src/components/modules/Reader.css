@@ -77,3 +77,8 @@ table, th, td {
 th {
     font-weight: bold;
 }
+
+/* Lists */
+ul {
+    list-style: none; /* ? */
+}
