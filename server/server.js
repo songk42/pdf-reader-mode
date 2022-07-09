@@ -4,6 +4,7 @@ const validator = require("./validator");
 validator.checkSetup();
 
 // import libraries needed for the webserver to work!
+const http = require("http");
 const express = require("express"); // backend framework for our node server.
 const path = require("path"); // provide utilities for working with file and directory paths
 
@@ -11,6 +12,8 @@ const path = require("path"); // provide utilities for working with file and dir
 require("dotenv").config();
 
 const api = require("./api.js");
+
+const socketManager = require("./server-socket");
 
 // create a new express server
 const app = express();
@@ -41,7 +44,9 @@ app.use((err, req, res, next) => {
     });
 });
 
-var server = app.listen(process.env.PORT || 3000, () => {
+const server = http.Server(app);
+socketManager.init(server);
+
+server.listen(process.env.PORT || 3000, () => {
     console.log("Server running");
 });
-server.timeout = 600000; // I really hope this is actually the upper limit...

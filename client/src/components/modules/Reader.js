@@ -16,7 +16,7 @@ function Reader(props) {
         }
         return classes.join(" ");
     }
-    function handleKids(kids, ppath) {
+    function handleKids(kids) {
         let content = [];
         for (var kid of kids) {
             let classes = "";
@@ -36,10 +36,7 @@ function Reader(props) {
                 else if (kid.Path.includes("Sub")) {
                     content.push(<span className={classes + " newline"}>{newContent}<br /></span>);
                 }
-                else if (kid.Path.includes("/LBody")) {
-                    content.push(<li className={classes}>{content}</li>);
-                }
-                else {
+                else if (!kid.Path.includes("/Lbl")) {
                     content.push(newContent);
                 }
             }
@@ -61,7 +58,7 @@ function Reader(props) {
             content = [text];
         }
         if ("Kids" in element) {
-            content = content.concat(handleKids(element.Kids, element.Path));
+            content = content.concat(handleKids(element.Kids));
             // add a key to each kid
         }
         // get font info
@@ -120,7 +117,7 @@ function Reader(props) {
             return <p className={classes + " footnote"}>{content}</p>;
         }
         if (last.slice(0, 5) == "LBody") {
-            return <li className={classes}>{content}</li>;
+            return <span className={classes}>{content}</span>;
         }
         if (last[0] == "L" || (last.length > 1 && last.slice(0, 2) == "L[")) {
             return <ul className={classes}>{content}</ul>;
@@ -155,6 +152,7 @@ function Reader(props) {
             var path = obj.Path.split("/");
             // process tables separately
             if (path.length > 3 && path[3].slice(0, 5) == "Table") {
+                // table processing
                 let last = path[path.length - 1];
                 if (last.slice(0, 5) == "Table") {
                     if (table.length > 0) {
@@ -177,7 +175,7 @@ function Reader(props) {
                     }
                     if (path.length > 4 && path[4] != rowLabel) {
                         rowLabel = path[4];
-                        table.push(<tr>{row}</tr>)
+                        table.push(<tr>{row}</tr>);
                         row = [];
                     }
                     if (last.slice(0, 2) != "TD" && last.slice(0, 2) != "TH") {
@@ -185,6 +183,44 @@ function Reader(props) {
                     }
                 }
             }
+            // process lists separately
+            else if (path.length > 3 && (path[3] == "L" || (path[3].length > 1 && path[3].slice(0, 2) == "L["))) {
+                // residual table processing/adding
+                if (cell.length > 0) {
+                    if (cellLabel[1] == "H") {
+                        row.push(<th>{cell}</th>);
+                    }
+                    else if (cellLabel[1] == "D") {
+                        row.push(<td>{cell}</td>);
+                    }
+                    cell = [];
+                }
+                if (row.length > 0) {
+                    table.push(<tr>{row}</tr>);
+                    row = [];
+                }
+                if (table.length > 0) {
+                    pageContent.push(<table><tbody>{table}</tbody></table>);
+                    table = [];
+                    rowLabel = "TR";
+                    cellLabel = "TH";
+                }
+                let list = []; // is there a way to determine ordered/unorderedness?
+                let listItem = [];
+                // list processing
+                for (const kid of obj.Kids) {
+                    let kidPath = kid.Path.split('/');
+                    if (kidPath.length == 5 && kidPath[4].slice(0, 2) == "LI") {
+                        list.push(<li>{listItem}</li>);
+                        listItem = [];
+                    }
+                    else {
+                        listItem.push(renderElement(kid));
+                    }
+                }
+                pageContent.push(<ul>{list}</ul>);
+            }
+            // everything else
             else {
                 // residual table processing/adding
                 if (cell.length > 0) {
