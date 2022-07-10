@@ -46,6 +46,7 @@ function LandingPage() {
                 setBwLabel={setBwLabel}
             />
             <Reader
+                outputdir={outputdir}
                 pdfObj={pdfObj}
                 colorScheme={colorScheme}
                 serif={serif}

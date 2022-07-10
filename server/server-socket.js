@@ -1,28 +1,27 @@
 let io;
 
-const userToSocketMap = {}; // maps user ID to socket object
-const socketToUserMap = {}; // maps socket ID to user object
+const sessionToSocketMap = {}; // maps session ID to socket object
+const socketToSessionMap = {}; // maps socket ID to session object
 
-const getSocketFromUserID = (userid) => userToSocketMap[userid];
-const getUserFromSocketID = (socketid) => socketToUserMap[socketid];
+const getSocketFromSessionID = (sessionidid) => sessionToSocketMap[sessionidid];
+const getSessionFromSocketID = (socketid) => socketToSessionMap[socketid];
 const getSocketFromSocketID = (socketid) => io.sockets.connected[socketid];
 
-const addUser = (user, socket) => {
-  const oldSocket = userToSocketMap[user._id];
+const addSession = (sessionid, socket) => {
+  const oldSocket = sessionToSocketMap[sessionid];
   if (oldSocket && oldSocket.id !== socket.id) {
-    // there was an old tab open for this user, force it to disconnect
-    // FIXME: is this the behavior you want?
+    // there was an old tab open for this sessionid, force it to disconnect
     oldSocket.disconnect();
-    delete socketToUserMap[oldSocket.id];
+    delete socketToSessionMap[oldSocket.id];
   }
 
-  userToSocketMap[user._id] = socket;
-  socketToUserMap[socket.id] = user;
+  sessionToSocketMap[sessionId] = socket;
+  socketToSessionMap[socket.id] = sessionid;
 };
 
-const removeUser = (user, socket) => {
-  if (user) delete userToSocketMap[user._id];
-  delete socketToUserMap[socket.id];
+const removeSession = (sessionid, socket) => {
+  delete sessionToSocketMap[sessionid];
+  delete socketToSessionMap[socket.id];
 };
 
 module.exports = {
@@ -32,17 +31,17 @@ module.exports = {
     io.on("connection", (socket) => {
       console.log(`socket has connected ${socket.id}`);
       socket.on("disconnect", (reason) => {
-        const user = getUserFromSocketID(socket.id);
-        removeUser(user, socket);
+        const sessionid = getSessionFromSocketID(socket.id);
+        removeUser(sessionid, socket);
       });
     });
   },
 
-  addUser: addUser,
-  removeUser: removeUser,
+  addSession: addSession,
+  removeSession: removeSession,
 
-  getSocketFromUserID: getSocketFromUserID,
-  getUserFromSocketID: getUserFromSocketID,
+  getSocketFromSessionID: getSocketFromSessionID,
+  getSessionFromSocketID: getSessionFromSocketID,
   getSocketFromSocketID: getSocketFromSocketID,
   getIo: () => io,
 };

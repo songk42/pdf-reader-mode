@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { get } from "../../utilities";
+import { socket } from "../../client-socket";
+import { get, post } from "../../utilities";
 
 function FileInput(props) {
     const [fileURL, setFileURL] = useState("");
@@ -17,27 +18,35 @@ function FileInput(props) {
         // if (fileURL == "") {
         //     apiCall = "/api/getfromfile"
         // }
-        get(apiCall, apiInput).then((res) => {
+        // when is socket.id initialized?
+        get(apiCall, apiInput);
+        event.preventDefault();
+    }
+
+    useEffect(() => {
+        const callback = (res) => {
             props.setPdfObj(res.pdf);
             props.setOutputDir(res.outputdir);
             props.setLoading(false);
-        });
-
-        event.preventDefault();
-    }
+        };
+        socket.on("pdfRendered", callback); // call socket.emit("pdfRendered") at some point
+        return () => {
+            socket.off("pdfRendered", callback);
+        }
+    }, []);
 
     // if (props.urlInput) {
         return (
             <form className="file-input" onSubmit={handleSubmit}>
-                <label>
-                    Paste URL:
-                    <input
-                        type="text"
-                        className="file-url"
-                        value={fileURL}
-                        onChange={(e) => setFileURL(e.target.value)}
-                    ></input>
+                <label className="file-label">
+                    Enter PDF URL:
                 </label>
+                <input
+                    type="text"
+                    className="file-url"
+                    value={fileURL}
+                    onChange={(e) => setFileURL(e.target.value)}
+                ></input>
                 <button
                     className="file-submit"
                     type="submit"

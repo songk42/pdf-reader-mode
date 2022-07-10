@@ -15,25 +15,10 @@ const path = require("path");
 const yauzl = require("yauzl");
 const { DownloaderHelper } = require('node-downloader-helper');
 
-const tmpDir = os.tmpdir();
-
-// fs.mkdtemp(`${tmpDir}${path.sep}`, (err, folder) => {
-//     if (err)
-//         console.log(err);
-//     else {
-//         console.log("The temporary folder path is:", folder);
-//     }
-// });
-
-function isEmpty(obj) {
-    for (var i in obj) {
-        return false;
-    }
-    return true;
-}
 
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
+const socketManager = require("./server-socket");
 
 function extractJSON(infile, outputdir, callback) {
     // ExtractPDF params
@@ -111,6 +96,8 @@ function extractJSON(infile, outputdir, callback) {
 
 router.get("/getfromurl", (req, res) => {
     try {
+        const sessionId = req.session.id;
+        res.send({}); // "request received"
         // make temporary directory
         fs.mkdtemp(path.join(os.tmpdir(), 'prm-'), (err, folder) => {
             if (err) throw err;
@@ -123,7 +110,7 @@ router.get("/getfromurl", (req, res) => {
             dl.on('end', () => {
                 console.log("File downloaded");
                 extractJSON(path.join(folder, fname), folder, (pdfObj) => {
-                    res.send(pdfObj);
+                    socketManager.getSocketFromSessionID(sessionId).emit("pdfRendered", pdfObj);
                 });
             });
             dl.on('error', (err) => console.log("Download failed: ", err.message));
@@ -145,6 +132,13 @@ router.get("/getfromfile", (req, res) => {
         console.log('Exception encountered while executing operation', err);
     }
 })
+
+router.post("/initsocket", (req, res) => {
+    if (req.session.id) {
+        socketManager.addSession(req.session.id, socketManager.getSocketFromSocketID(req.body.socketid));
+    }
+    res.send({});
+});
 
 // ***** Everything else (i.e. error) *****
 // anything else falls to this "not found" case

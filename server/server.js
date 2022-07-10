@@ -6,7 +6,9 @@ validator.checkSetup();
 // import libraries needed for the webserver to work!
 const http = require("http");
 const express = require("express"); // backend framework for our node server.
+const session = require("express-session");
 const path = require("path"); // provide utilities for working with file and directory paths
+const uuid = require("uuid");
 
 // get environment variables
 require("dotenv").config();
@@ -21,6 +23,16 @@ app.use(validator.checkRoutes);
 
 // allow us to parse POST request data using middleware
 app.use(express.json());
+
+// set up a session
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        genid: function(req) { return uuid.v4(); },
+    })
+);
 
 // connect API routes from api.js
 app.use("/api", api);
