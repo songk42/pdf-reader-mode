@@ -110,15 +110,15 @@ router.get("/getfromurl", (req, res) => {
                 source = https;
             }
             source.get(req.query.fileurl, (res2) => {
-                // const filePath = fs.createWriteStream(inputpath);
-                // res2.pipe(filePath);
-                // filePath.on("finish", () => {
-                //     filePath.close();
-                //     console.log("File downloaded");
-                //     extractJSON(path.join(folder, fname), folder, (pdfObj) => {
-                //         res.send(pdfObj);
-                //     });
-                // })
+                const filePath = fs.createWriteStream(inputpath);
+                res2.pipe(filePath);
+                filePath.on("finish", () => {
+                    filePath.close();
+                    console.log("File downloaded");
+                    extractJSON(path.join(folder, fname), folder, (pdfObj) => {
+                        res.send(pdfObj);
+                    });
+                })
                 console.log(res2.responseUrl);
             });
 
