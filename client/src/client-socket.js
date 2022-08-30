@@ -5,4 +5,4 @@ export const socket = connect(endpoint, { withCredentials: true, rejectUnauthori
 socket.on("connect", () => {
   post("/api/initsocket", { socketid: socket.id });
 });
-socket.on("connect_error", function(e){ 	console.log("connect_error", e); });
+// socket.on("connect_error", function(e){ 	console.log("connect_error", e); });

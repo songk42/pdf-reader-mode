@@ -6,6 +6,7 @@ validator.checkSetup();
 // import libraries needed for the webserver to work!
 const http = require("http");
 const express = require("express"); // backend framework for our node server.
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const path = require("path"); // provide utilities for working with file and directory paths
 const uuid = require("uuid");
@@ -36,6 +37,8 @@ app.use(
 
 // connect API routes from api.js
 app.use("/api", api);
+
+app.use(cookieParser());
 
 // load the compiled react files, which will serve /index.html and /bundle.js
 const reactPath = path.resolve(__dirname, "..", "client", "public");

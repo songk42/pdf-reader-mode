@@ -13,6 +13,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const yauzl = require("yauzl");
+const { http, https } = require('follow-redirects');
 const { DownloaderHelper } = require('node-downloader-helper');
 
 
@@ -97,24 +98,46 @@ function extractJSON(infile, outputdir, callback) {
 router.get("/getfromurl", (req, res) => {
     try {
         const sessionId = req.session.id;
-        res.send({}); // "request received"
+        // res.send({}); // "request received"
         // make temporary directory
         fs.mkdtemp(path.join(os.tmpdir(), 'prm-'), (err, folder) => {
             if (err) throw err;
             // Download PDF from url first
             const fname = "input.pdf";
-            const dl = new DownloaderHelper(req.query.fileurl, folder, {
-                headers: { 'Content-Type': 'text/pdf' },
-                fileName: fname
+            const inputpath = path.join(folder, fname);
+            let source = http;
+            if (req.query.fileurl.slice(0, 5) == "https") {
+                source = https;
+            }
+            source.get(req.query.fileurl, (res2) => {
+                // const filePath = fs.createWriteStream(inputpath);
+                // res2.pipe(filePath);
+                // filePath.on("finish", () => {
+                //     filePath.close();
+                //     console.log("File downloaded");
+                //     extractJSON(path.join(folder, fname), folder, (pdfObj) => {
+                //         res.send(pdfObj);
+                //     });
+                // })
+                console.log(res2.responseUrl);
             });
-            dl.on('end', () => {
-                console.log("File downloaded");
-                extractJSON(path.join(folder, fname), folder, (pdfObj) => {
-                    socketManager.getSocketFromSessionID(sessionId).emit("pdfRendered", pdfObj);
-                });
-            });
-            dl.on('error', (err) => console.log("Download failed: ", err.message));
-            dl.start().catch(err => console.error(err));
+
+            // const dl = new DownloaderHelper(req.query.fileurl, folder, {
+            //     headers: {
+            //         'Accept': 'application/pdf',
+            //         'Content-Type': 'application/pdf'
+            //     },
+            //     fileName: fname
+            // });
+            // dl.on('end', () => {
+            //     console.log("File downloaded");
+            //     extractJSON(path.join(folder, fname), folder, (pdfObj) => {
+            //         res.send(pdfObj);
+            //         // socketManager.getSocketFromSessionID(sessionId).emit("pdfRendered", pdfObj);
+            //     });
+            // });
+            // dl.on('error', (err) => console.log("Download failed: ", err.message));
+            // dl.start().catch(err => console.error(err));
         });
     } catch (err) {
         console.log('Exception encountered while executing operation', err);

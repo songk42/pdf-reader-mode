@@ -36,6 +36,13 @@ function Reader(props) {
                 else if (kid.Path.includes("Sub")) {
                     content.push(<span className={classes + " newline"}>{newContent}<br /></span>);
                 }
+                else if (kid.Path.includes("Reference")) {
+                    let ref = '#';
+                    if ("Reference" in kid && kid.Reference.slice(0, 5) != "Page ") {
+                        ref = kid.Reference;
+                    }
+                    content.push(<a className={classes} href={ref}>{newContent}</a>);
+                }
                 else if (!kid.Path.includes("/Lbl")) {
                     content.push(newContent);
                 }
@@ -153,9 +160,9 @@ function Reader(props) {
             return <p className={classes}>{content}</p>;
         }
         if (last[0] == "R") {
-            // if ("Reference" in element) {
-            //     return <a className={classes} href={element.Reference}>{content}</a>;
-            // }
+            if ("Reference" in element && element.Reference.slice(0, 5) != "Page ") {
+                return <a className={classes} href={element.Reference}>{content}</a>;
+            }
             return <a className={classes} href="#">{content}</a>;
         }
         if (last.includes("Span")) {

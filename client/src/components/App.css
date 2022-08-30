@@ -23,27 +23,6 @@
     z-index: 1001;
 }
 
-.file-input {
-    display: flex;
-    flex-direction: column;
-}
-
-.file-label {
-    align-self: center;
-}
-
-.file-url {
-    font-size: 16px;
-    padding: 4px;
-    border: 1px solid var(--popup-border);
-}
-
-.file-submit {
-    font-size: 16px;
-    background-color: #edecf0;
-    border: 1px solid var(--popup-border);
-}
-
 /* Light */
 .page-container-light {
     background-color: #fff;
