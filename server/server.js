@@ -28,7 +28,6 @@ app.use(express.json());
 // set up a session
 app.use(
     session({
-        secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
         genid: function(req) { return uuid.v4(); },

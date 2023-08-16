@@ -24,12 +24,9 @@ const socketManager = require("./server-socket");
 function extractJSON(infile, outputdir, callback) {
     // ExtractPDF params
     const credentials = PDFServicesSdk.Credentials
-        .serviceAccountCredentialsBuilder()
-        .withClientId(process.env.CLIENT_ID)
-        .withClientSecret(process.env.CLIENT_SECRET)
-        .withOrganizationId(process.env.ORG_ID)
-        .withAccountId(process.env.ACCT_ID)
-        .withPrivateKey(process.env.PRIVATE_KEY)
+        .servicePrincipalCredentialsBuilder()
+        .withClientId(process.env.PDF_SERVICES_CLIENT_ID)
+        .withClientSecret(process.env.PDF_SERVICES_CLIENT_SECRET)
         .build();
     const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
     const options = new PDFServicesSdk.ExtractPDF.options.ExtractPdfOptions.Builder()
