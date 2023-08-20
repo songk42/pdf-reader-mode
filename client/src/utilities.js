@@ -39,6 +39,7 @@ function convertToJSON(res) {
 // Returns a Promise to a JSON Object.
 export function get(endpoint, params = {}) {
     const fullPath = endpoint + "?" + formatParams(params);
+    // const fullPath = "https://www.wikiwand.com/ko/%EB%A7%88%EB%A6%84%EB%AA%A8";
     return fetch(fullPath)
         .then(convertToJSON)
         .catch((error) => {
@@ -63,7 +64,7 @@ export function post(endpoint, params = {}) {
 }
 
 export function isEmpty(obj) {
-    for (var i in obj) {
+    for (const i in obj) {
         return false;
     }
     return true;

@@ -25,6 +25,9 @@ function FileInput(props) {
             props.setPdfObj(res.pdf);
             props.setOutputDir(res.outputdir);
             props.setLoading(false);
+        })
+        .catch((err) => {
+            throw err;
         });
         event.preventDefault();
     }

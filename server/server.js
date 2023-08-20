@@ -14,7 +14,7 @@ const uuid = require("uuid");
 // get environment variables
 require("dotenv").config();
 
-const api = require("./api.js");
+const api = require("./api");
 
 const socketManager = require("./server-socket");
 
@@ -28,16 +28,16 @@ app.use(express.json());
 // set up a session
 app.use(
     session({
+        secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
-        genid: function(req) { return uuid.v4(); },
+        genid: (req) => uuid.v4()
     })
 );
 
 // connect API routes from api.js
 app.use("/api", api);
 
-app.use(cookieParser());
 
 // load the compiled react files, which will serve /index.html and /bundle.js
 const reactPath = path.resolve(__dirname, "..", "client", "public");
@@ -58,9 +58,10 @@ app.use((err, req, res, next) => {
     });
 });
 
+const port = 3000;
 const server = http.Server(app);
 socketManager.init(server);
 
-server.listen(process.env.PORT || 3000, () => {
+server.listen(port, () => {
     console.log("Server running");
 });

@@ -5,15 +5,9 @@
   "private": true,
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^3.3.0",
-    "@babel/cli": "^7.22.10",
-    "@babel/core": "^7.22.10",
-    "@babel/preset-env": "^7.22.10",
-    "body-parser": "^1.20.2",
-    "cookie-parser": "^1.4.6",
     "core-js": "^3.23.2",
     "date-fns": "^2.30.0",
     "debug": "^4.3.4",
-    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "follow-redirects": "^1.15.2",
@@ -34,7 +28,7 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
-    "hotloader": "webpack serve --mode development --port 4000",
+    "hotloader": "webpack serve --config ./webpack.config.js --mode development --port 4000",
     "start": "nodemon",
     "build": "webpack",
     "test": "react-scripts test",
@@ -53,10 +47,20 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.22.10",
+    "@babel/core": "^7.22.10",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/preset-env": "^7.22.10",
     "babel-loader": "^9.1.3",
-    "file-loader": "^6.2.0",
-    "url-loader": "^4.1.1",
-    "webpack-cli": "^5.1.4"
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "css-loader": "^6.8.1",
+    "dotenv": "^16.3.1",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "xml-loader": "^1.2.1"
   },
   "browser": {
     "fs": false,

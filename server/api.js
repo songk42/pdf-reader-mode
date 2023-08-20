@@ -89,6 +89,9 @@ function extractJSON(infile, outputdir, callback) {
                     })
                 });
             });
+        })
+        .catch((err) => {
+            throw err;
         });
 }
 
@@ -97,10 +100,13 @@ router.get("/getfromurl", (req, res) => {
         const sessionId = req.session.id;
         // res.send({}); // "request received"
         // make temporary directory
-        fs.mkdtemp(path.join(os.tmpdir(), 'prm-'), (err, folder) => {
-            if (err) throw err;
+        fs.mkdtemp(path.join(os.tmpdir(), `prm-${sessionId}`), (err, folder) => {
+            if (err) {
+                console.log("error 1");
+                throw err;
+            }
             // Download PDF from url first
-            const fname = "input.pdf";
+            const fname = "prm-input.pdf";
             const inputpath = path.join(folder, fname);
             let source = http;
             if (req.query.fileurl.slice(0, 5) == "https") {
@@ -151,6 +157,11 @@ router.get("/getfromfile", (req, res) => {
     } catch (err) {
         console.log('Exception encountered while executing operation', err);
     }
+})
+
+router.get("/hello", (req, res) => {
+    alert("hello world");
+    res.send("hello world");
 })
 
 router.post("/initsocket", (req, res) => {
