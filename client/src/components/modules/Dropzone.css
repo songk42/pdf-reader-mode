@@ -1,0 +1,18 @@
+.file-upload-local {
+    border: 1px solid;
+    border-radius: 24px;
+    padding: 0.5em;
+    height: 180px;
+}
+
+.file-upload-local-inner {
+    border: 1px dashed;
+    border-radius: 12px;
+    height: inherit;
+    font-weight: bold;
+    display: flex;
+}
+
+.file-upload-local-text {
+    margin: auto;
+}

@@ -2,31 +2,58 @@
     font-size: 18px;
     display: flex;
     flex-direction: column;
+    margin: auto;
     gap: 1em;
-    margin: 1em min(10%, 500px);
+    max-width: 640px;
+}
+
+.file-upload-url {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
 
 .file-label {
     align-self: center;
+    font-weight: bold;
 }
+
+.page-container-light .file-label ::placeholder {
+    color: var(--light-border);
+}
+
+.page-container-dark .file-label ::placeholder {
+     color: var(--dark-border);
+}
+
+ .file-url-input {
+    display: grid;
+    grid-template-columns: 1fr auto;
+ }
 
 .file-url {
     font-size: 18px;
-    padding: 4px;
-    border: 1px solid var(--popup-border);
+    padding: 0em 1em;
+    border: 1px solid;
+    border-radius: var(--radius);
+    height: var(--button-height);
 }
 
 .file-submit {
     font-size: 18px;
-    background-color: var(--blue-40-a50);
-    border: 1px solid var(--popup-border);
+    background-color: var(--purple-dark);
+    color: var(--dark-text);
+    border: none;
+    border-radius: var(--radius);
     padding: 0.5em 1em;
+    height: var( --button-height);
+    font-weight: bold;
 }
 
 .file-submit:hover {
-    background-color: var(--blue-40-a70);
+    background-color: var(--purple);
 }
 
 .page-container-dark .file-submit {
-    color: #eee;
+    color: var(--dark-text);
 }

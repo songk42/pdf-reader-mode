@@ -8,21 +8,24 @@ function LandingPage() {
     const [outputdir, setOutputDir] = useState("");
     const [pdfObj, setPdfObj] = useState({"elements": []});
 
-    const [colorScheme, setColorScheme] = useState("light");
-    const [fontSize, setFontSize] = useState(16);
-    const [lineHeight, setLineHeight] = useState(1.6);
+    const [theme, setTheme] = useState("light");
+    const [fsIndex, setFontSizeIndex] = useState(3);
+    const [lineHeight, setLineHeight] = useState(1.5);
     const [bodyWidth, setBodyWidth] = useState(30);
     const [serif, setSerif] = useState(false);
-    const [fsLabel, setFsLabel] = useState(3);
-    const [lhLabel, setLhLabel] = useState(4);
-    const [bwLabel, setBwLabel] = useState(3);
+    const [menuVisible, setMenuVisible] = useState(true);
+
+    const fsDict = [-1, 12, 14, 16, 18, 20, 24, 28, 32, 40, 56, 60, 72, 96]  // font size
+    function incrementFontSizeIndex(inc) {
+        setFontSizeIndex(fsIndex + inc);
+    }
 
     const [loading, setLoading] = useState(false);
 
     return (
         <div
             id="landing"
-            className={`page-container page-container-${colorScheme}`}>
+            className={`page-container page-container-${theme}`}>
             <h1 className="landing-title">PDF Reader Mode</h1>
             <FileInput
                 urlInput={true}
@@ -31,26 +34,26 @@ function LandingPage() {
                 setOutputDir={setOutputDir}
             />
             <MenuContainer
-                colorScheme={colorScheme}
-                setColorScheme={setColorScheme}
-                setFontSize={setFontSize}
+                menuVisible={menuVisible}
+                setMenuVisible={setMenuVisible}
+                theme={theme}
+                setTheme={setTheme}
+                incrementFontSizeIndex={incrementFontSizeIndex}
                 setLineHeight={setLineHeight}
                 setBodyWidth={setBodyWidth}
                 serif={serif}
                 setSerif={setSerif}
-                fsLabel={fsLabel}
-                lhLabel={lhLabel}
-                bwLabel={bwLabel}
-                setFsLabel={setFsLabel}
-                setLhLabel={setLhLabel}
-                setBwLabel={setBwLabel}
+                fsIndex={fsIndex}
+                lineHeight={lineHeight}
+                bodyWidth={bodyWidth}
+                fsDict={fsDict}
             />
             <Reader
                 outputdir={outputdir}
                 pdfObj={pdfObj}
-                colorScheme={colorScheme}
+                theme={theme}
                 serif={serif}
-                fontSize={fontSize}
+                fontSize={fsDict[fsIndex]}
                 lineHeight={lineHeight}
                 bodyWidth={bodyWidth}
                 loading={loading}

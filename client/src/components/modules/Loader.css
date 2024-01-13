@@ -21,11 +21,11 @@
 }
 
 .page-container-light .loader-bubble {
-    background-color: #333;
+    background-color: var(--light-text);
 }
 
 .page-container-dark .loader-bubble {
-    background-color: #eee;
+    background-color: var(--dark-text);
 }
 
 .page-container-sepia .loader-bubble {

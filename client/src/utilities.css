@@ -1,4 +1,14 @@
 :root {
+    --light-field: #fafafa;
+    --dark-field: #363538;
+    --light-border: #737373;
+    --dark-border: #9d9d9d;
+    --light-text: #3d3d3d;
+    --dark-text: #eee;
+    --light-background: #fff;
+    --dark-background: #1c1b22;
+    --sepia-background: #f4ecd8;
+    --sepia-menu: #fff;
     --popup-border: rgba(0, 0, 0, 0.45);
     --opaque-popup-border: #e0e0e0;
     --popup-shadow: rgba(49, 49, 49, 0.3);
@@ -12,6 +22,11 @@
     --blue-40-a50: rgba(69, 161, 255, 0.5);
     --blue-40-a70: rgba(69, 161, 255, 0.7);
     --blue-60: #024db0;
+    --purple-light: #cdc1ff;
+    --purple: #765aea;
+    --purple-dark: #4821e9;
+    --button-height: 48px;
+    --radius: 12px;
 }
 
 h1 {

@@ -25,8 +25,25 @@
 
 /* Light */
 .page-container-light {
-    background-color: #fff;
-    color: #333;
+    background-color: var(--light-background);
+    color: var(--light-text);
+}
+
+.page-container-light .background {
+    background-color: var(--light-background);
+}
+
+.page-container-light .field {
+    background-color: var(--light-field);
+    color: var(--light-text);
+}
+
+.page-container-light .border {
+    border-color: var(--light-border);
+}
+
+.page-container-light .text {
+    color: var(--light-text);
 }
 
 .page-container-light a {
@@ -39,8 +56,26 @@
 
 /* Dark */
 .page-container-dark {
-    background-color: rgb(28, 27, 34);
-    color: #eee;
+    background-color: var(--dark-background);
+    color: var(--dark-text);
+}
+
+.page-container-dark .background {
+    background-color: var(--dark-background);
+
+}
+
+.page-container-dark .field {
+    background-color: var(--dark-field);
+    color: var(--dark-text);
+}
+
+.page-container-dark .border {
+    border-color: var(--dark-border);
+}
+
+.page-container-dark .text {
+    color: var(--dark-text);
 }
 
 .page-container-dark a {
@@ -53,8 +88,25 @@
 
 /* Sepia */
 .page-container-sepia {
-    background-color: #f4ecd8;
+    background-color: var(--sepia-background);
     color: #5b4636;
+}
+
+.page-container-sepia .background {
+    background-color: var(--sepia-menu);
+}
+
+.page-container-sepia .field {
+    background-color: var(--light-field);
+    color: var(--light-text);
+}
+
+.page-container-sepia .border {
+    border-color: var(--light-border);
+}
+
+.page-container-sepia .text {
+    color: var(--light-text);
 }
 
 .page-container-sepia a {

@@ -1,27 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./Menu.css";
 
 function TextControl(props) {
+    const [dropdownClassName, setDropdownClass] = useState("menu-font-list menu-dropdown background hide");
+
+    function toggleDropdown() {
+        if (dropdownClassName == "menu-font-list menu-dropdown background hide") {
+            setDropdownClass("menu-font-list menu-dropdown background");
+        } else {
+            setDropdownClass("menu-font-list menu-dropdown background hide");
+        }
+    }
+
     return (
         <div className="menu-text-control">
+            {props.icon}
             <button
-                className="menu-button menu-text-smaller"
-                onClick={(e) => props.increment(-1)}
-                disabled={props.num <= 1}
-                style={{ backgroundImage: `url(${props.bgSmall})` }}
-                title={props.hoverSmall}
+                className="menu-text-selector menu-dropdown-selector menu-label field"
+                onClick={(e) => toggleDropdown()}
             >
+                {props.value}
             </button>
-            <span className="menu-label">{props.num}</span>
-            <button
-                className="menu-button menu-text-larger"
-                onClick={(e) => props.increment(1)}
-                disabled={props.num >= props.max - 1}
-                style={{ backgroundImage: `url(${props.bgLarge})` }}
-                title={props.hoverLarge}
-            >
-            </button>
+            <ul className={dropdownClassName}>
+                {props.values.map((value) =>
+                    <li className="menu-dropdown-item" onClick={(e) => {props.change(value); toggleDropdown();}}><a>{value}</a></li>
+                )}
+            </ul>
         </div>
     );
 }

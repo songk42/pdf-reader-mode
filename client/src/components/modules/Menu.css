@@ -1,6 +1,6 @@
 /* General */
 .menu-container {
-    height: 0;
+    top: 0px;
     position: sticky;
     z-index: 2;
 }
@@ -8,157 +8,155 @@
 .menu-controls {
     z-index: 1000;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: row; */
     align-content: center;
-    width: 240px;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    margin: auto;
+    width: 598px;
+    border: 1px solid;
     box-shadow: 0px 0px 10px 0px rgba(49, 49, 49, 0.3);
     position: relative;
-    border-radius: 6px;
+    border-radius: 24px;
+    padding: 24px;
+    justify-content: space-evenly;
 }
 
-.menu-toggle:before,
-.menu-button:before {
-    position: relative;
-    /* top: 4px; */
-    /* inset-inline-start: 36px; */
-    line-height: 16px;
-    padding: 4px 8px;
-    visibility: hidden;
-    z-index: 1001;
-    white-space: pre;
-}
-
-.menu-toggle:hover:before,
-.menu-button:hover:before {
-    visibility: visible;
-}
-
-.menu-toggle {
-    width: 48px;
-    height: 48px;
-    background-size: 27px 16px;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 0;
-    border-radius: 6px;
-}
-
-.menu-button, .menu-font {
+.menu-button {
     border: none;
     border-radius: 0px;
     background-repeat: no-repeat;
     background-color: transparent;
 }
 
-.menu-button {
-    background-color: transparent;
+.menu-icon {
+    height: 32px;
+    width: 32px;
 }
 
-.menu-fonts {
+.menu-theme-icon {
+    height: 24px;
+    width: 24px;
+    align-self: center;
+}
+
+.menu-dropdown-selector {
+    border: solid 1px var(--light-border);
+    border-radius: var(--radius);
+    padding: 8px;
+}
+
+.menu-dropdown {
+    position: absolute;
+    z-index: 1001;
+    box-shadow: 0px 0px 6px 0px rgba(49, 49, 49, 0.3);
+    padding: 1em 1em;
+    top: 52px;
+    border-radius: var(--radius);
+}
+
+.menu-dropdown.hide {
+    display: none;
+}
+
+.menu-dropdown-item {
+    font-size: 18px;
+    margin: 0.25em 1em;
+}
+
+.menu-dropdown-item:hover {
+    cursor: pointer;
+}
+
+.menu-font-container {
     display: flex;
-    justify-content: space-around;
-    padding-top: 8px;
-    padding-bottom: 4px;
+    justify-content: center;
+    align-content: center;
 }
 
-.menu-font {
-    width: 100px;
-    height: 60px;
-    background-size: 54px 32px;
-    background-position: center 22px;
-    border: 2px solid var(--popup-border);
-}
-
-.menu-font-underline {
-    width: 100px;
-    height: 2px;
-    margin-top: 2px;
-}
-
-.menu-font:hover ~ .menu-font-underline {
-    background-color: var(--blue-40);
-}
-
-.menu-font label {
+.menu-font-type {
     position: relative;
-    top: -20px;
 }
 
-/* .menu-font, .menu-color {
-    padding-bottom: 2px;
-}
-
-.menu-font:hover, .menu-color:hover {
-    border-bottom: 2px solid var(--blue-40);
-    inset-inline-start: -2px;
-    bottom: 6px;
-    padding-bottom: 0px;
-} */
-
-.menu-font-selected {
-    background-color: var(--blue-40-a30) !important;
-    border-color: var(--blue-40) !important;
-}
-
-.menu-sans-serif p {
-    font-family: "Helvetica", "Arial", sans-serif;
-}
-
-.menu-serif p {
-    font-family: "Georgia", serif;
+.menu-font-list {
+    display: grid;
 }
 
 .menu-text-control {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-content: center;
+    position: relative;
 }
 
-.menu-text-smaller, .menu-text-larger {
-    width: 80px;
-    height: 60px;
+.menu-text-smaller,
+.menu-text-larger {
+    font-size: 24px;
     background-position: center;
+    padding: 0px 12px;
 }
 
 .menu-label {
-    padding: 3.75px 16px;
+    padding: 8px;
     align-self: center;
     align-content: center;
     font-size: 18px;
-    border-radius: 18px;
+    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    border: solid 1px var(--light-border);
 }
 
-.menu-color-scheme {
+.menu-separator {
+    border: solid 0.5px;
+    margin: 0px 8px;
+}
+
+.menu-theme {
+    position: relative;
+}
+
+.menu-theme-selector {
+    align-self: center;
+    align-content: center;
+    border-radius: 12px;
+    border: solid 1px var(--light-border);
+}
+
+
+.menu-theme-list .menu-dropdown {
+    padding: 1em;
     display: flex;
     justify-content: space-around;
-    padding-top: 8px;
-    padding-bottom: 4px;
+    width: 360px;
 }
 
-.menu-color {
-    width: 60px;
-    height: 40px;
-    border: 2px solid var(--popup-border) !important;
+.menu-theme-list .menu-dropdown .hide {
+    display: none;
+}
+
+.menu-theme-list .menu-dropdown-item {
+    margin: 0px;
+}
+
+.menu-theme-list {
+    display: flex;
+    justify-content: space-around;
+}
+
+.menu-theme-button {
+    background: none;
+    border: none;
     font-size: 18px;
 }
 
-.menu-color-selected {
-    border-color: var(--blue-40) !important;
-}
-
-.menu-color-underline {
-    width: 60px;
-    height: 2px;
-    margin-top: 2px;
-}
-
-.menu-color:hover ~ .menu-color-underline {
-    background-color: var(--blue-40);
+.menu-theme-option {
+    width: 96px;
+    border: solid 1px;
+    border-radius: 12px;
 }
 
 .menu-light-button {
     background-color: #fff;
-    color: #333;
+    color: var(--light-text);
     border: none;
 }
 
@@ -176,112 +174,74 @@
 
 /* Light */
 .menu-light {
-    background-color: white;
-    color: #333;
-}
-
-.page-container-light .menu-toggle {
-    background-color: white;
-    border: 2px solid var(--popup-border);
-}
-
-.page-container-light .menu-toggle:hover {
-    background-color: hsla(0,0%,70%,.4);
-}
-
-.menu-light .menu-fonts,
-.menu-light .menu-text-control {
-    border-bottom: 1px solid var(--grey-30);
-}
-
-.menu-light .menu-font {
-    background-color: #edecf0;
-    color: #333;
+    color: var(--light-text);
+    border-color: var(--light-border);
 }
 
 .menu-light .menu-button:enabled:hover {
-    background-color: hsla(0,0%,70%,.4);
+    background-color: hsla(0, 0%, 70%, .4);
 }
 
 .menu-light .menu-button:enabled:active {
-    background-color: hsla(240,5%,5%,.15);
+    background-color: hsla(240, 5%, 5%, .15);
 }
 
-.menu-light .menu-label {
-    background-color: #edecf0;
+.menu-light .menu-dropdown-item a {
+    color: var(--light-text);
+}
+
+.menu-light .menu-dropdown-item:hover a {
+    color: var(--purple-dark);
+}
+
+.menu-light .text.selected {
+    color: var(--purple-dark);
+}
+
+.menu-light .border.selected {
+    border: var(--purple-dark) solid 2px;
 }
 
 /* Dark */
 .menu-dark {
-    background-color: #42414d;
-    color: #eee;
-}
-
-.page-container-dark .menu-toggle {
-    background-color: #42414d;
-    border: 2px solid rgba(255, 255, 255, 0.45);
-}
-
-.page-container-dark .menu-toggle:hover {
-    background-color: hsla(0,0%,70%,.4);
-}
-
-.menu-dark .menu-fonts,
-.menu-dark .menu-text-control {
-    border-bottom: 1px solid #a0a0ac;
-}
-
-.menu-dark .menu-font {
-    background-color: #5c5c61;
-    color: #eee;
-    border: 2px solid rgba(255, 255, 255, 0.45);
+    color: var(--dark-text);
+    border-color: var(--dark-border);
 }
 
 .menu-dark .menu-button:enabled:hover {
-    background-color: hsla(0,0%,70%,.4);
+    background-color: hsla(0, 0%, 70%, .4);
 }
 
 .menu-dark .menu-button:enabled:active {
-    background-color: hsla(0,0%,70%,.6);
+    background-color: hsla(0, 0%, 70%, .6);
 }
 
-.menu-dark .menu-label {
-    background-color: #5c5c61;
+.menu-dark .text.selected {
+    color: var(--purple-light);
+}
+
+.menu-dark .border.selected {
+    border: var(--purple-light) solid 2px;
 }
 
 /* Sepia */
 .menu-sepia {
-    background-color: white;
-    color: #333;
-}
-
-.page-container-sepia .menu-toggle {
-    background-color: #f4ecd8;
-    border: 2px solid var(--popup-border);
-}
-
-.page-container-sepia .menu-toggle:hover {
-    background-color: hsla(0,0%,70%,.4);
-}
-
-.menu-sepia .menu-fonts,
-.menu-sepia .menu-text-control {
-    border-bottom: 1px solid var(--grey-30);
-}
-
-.menu-sepia .menu-font {
-    background-color: #edecf0;
-    color: #333;
+    color: var(--light-text);
+    border-color: var(--light-border);
 }
 
 .menu-sepia .menu-button:enabled:hover {
-    background-color: hsla(0,0%,70%,.4);
+    background-color: hsla(0, 0%, 70%, .4);
 }
 
 .menu-sepia .menu-button:enabled:active {
-    background-color: hsla(240,5%,5%,.15);
+    background-color: hsla(240, 5%, 5%, .15);
 }
 
-.menu-sepia .menu-label {
-    background-color: #edecf0;
+.menu-sepia .text.selected {
+    color: var(--purple-dark);
+}
+
+.menu-sepia .border.selected {
+    border: var(--purple-dark) solid 2px;
 }

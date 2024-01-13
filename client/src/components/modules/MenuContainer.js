@@ -2,45 +2,31 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Menu from "./Menu";
-
-import ISans from "../../assets/sansserif.svg";
-import ISansLight from "../../assets/sansserif-light.svg";
-
 import "./Menu.css";
 
 function MenuContainer(props) {
-    const [showMenu, setMenu] = useState(false);
-
+    if (props.menuVisible) {
     return (
         <div className="menu-container">
-            <button
-                className="menu-toggle"
-                style={{
-                    backgroundImage: `url(${props.colorScheme=="dark" ? ISansLight : ISans})`
-                }}
-                onClick={(e) => setMenu(!showMenu)}
-                title="Type controls"
-            >
-            </button>
-            {showMenu ? 
             <Menu
-                colorScheme={props.colorScheme}
-                setColorScheme={props.setColorScheme}
-                setFontSize={props.setFontSize}
+                theme={props.theme}
+                setTheme={props.setTheme}
+                incrementFontSizeIndex={props.incrementFontSizeIndex}
                 setLineHeight={props.setLineHeight}
                 setBodyWidth={props.setBodyWidth}
                 serif={props.serif}
                 setSerif={props.setSerif}
-                fsLabel={props.fsLabel}
-                lhLabel={props.lhLabel}
-                bwLabel={props.bwLabel}
-                setFsLabel={props.setFsLabel}
-                setLhLabel={props.setLhLabel}
-                setBwLabel={props.setBwLabel}
+                fsIndex={props.fsIndex}
+                lineHeight={props.lineHeight}
+                bodyWidth={props.bodyWidth}
+                fsDict={props.fsDict}
             />
-            : <div></div>}
         </div>
-    );
+    );} else {
+        return (
+            <div className="menu-container" />
+        )
+    }
 }
 
 export default MenuContainer;
