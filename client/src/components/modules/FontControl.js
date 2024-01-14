@@ -16,7 +16,7 @@ function FontControl(props) {
 
     return (
         <div className="menu-font-container">
-            <div className="menu-font-type">
+            <div className="menu-font-type" title={"Font family"}>
                 <button
                     className="menu-font-selector menu-dropdown-selector field"
                     onClick={(e) => toggleDropdown()}
@@ -38,7 +38,12 @@ function FontControl(props) {
                 >
                     -
                 </button>
-                <span className="menu-label field">{props.fontSizes[props.fsIndex]}</span>
+                <label
+                    className="font-size-label menu-label field"
+                    title={"Font size"}
+                >
+                    {props.fontSizes[props.fsIndex]}
+                </label>
                 <button
                     className="menu-button menu-font-size-button menu-text-larger text"
                     onClick={(e) => props.incrementFontSizeIndex(1)}

@@ -14,7 +14,7 @@ function TextControl(props) {
     }
 
     return (
-        <div className="menu-text-control">
+        <div className="menu-text-control" title={props.hover}>
             {props.icon}
             <button
                 className="menu-text-selector menu-dropdown-selector menu-label field"

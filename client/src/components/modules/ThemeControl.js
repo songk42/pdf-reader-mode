@@ -18,8 +18,9 @@ function ThemeControl(props) {
     return (
         <div className="menu-theme">
             <button
-                className="menu-theme-selector menu-label"
+                className="menu-theme-selector menu-button menu-label"
                 onClick={(e) => toggleDropdown()}
+                title={"Color scheme"}
             >
                 <label>{props.font}</label>
                 <MdInvertColors className="menu-theme-icon" />

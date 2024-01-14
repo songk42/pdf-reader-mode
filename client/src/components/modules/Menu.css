@@ -11,7 +11,7 @@
     /* flex-direction: row; */
     align-content: center;
     margin: auto;
-    width: 598px;
+    width: 590px;
     border: 1px solid;
     box-shadow: 0px 0px 10px 0px rgba(49, 49, 49, 0.3);
     position: relative;
@@ -30,6 +30,8 @@
 .menu-icon {
     height: 32px;
     width: 32px;
+    align-self: center;
+    padding-right: 8px;
 }
 
 .menu-theme-icon {
@@ -66,14 +68,32 @@
     cursor: pointer;
 }
 
+.menu-font-selector {
+    font-size: 16px;
+}
+
 .menu-font-container {
     display: flex;
     justify-content: center;
     align-content: center;
 }
 
+.menu-font-size-selector {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    position: relative;
+}
+
 .menu-font-type {
     position: relative;
+    align-self: center;
+}
+
+.font-size-label {
+    width: 22px !important;
+    height: 22px !important;
+    vertical-align: middle;
 }
 
 .menu-font-list {
@@ -112,6 +132,7 @@
 
 .menu-theme {
     position: relative;
+    align-self: center;
 }
 
 .menu-theme-selector {
