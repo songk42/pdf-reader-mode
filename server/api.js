@@ -98,7 +98,6 @@ function extractJSON(infile, outputdir, callback) {
 router.get("/getfromurl", (req, res) => {
     try {
         const sessionId = req.session.id;
-        // res.send({}); // "request received"
         // make temporary directory
         fs.mkdtemp(path.join(os.tmpdir(), `prm-${sessionId}`), (err, folder) => {
             if (err) {
@@ -124,23 +123,6 @@ router.get("/getfromurl", (req, res) => {
                 })
                 console.log(res2.responseUrl);
             });
-
-            // const dl = new DownloaderHelper(req.query.fileurl, folder, {
-            //     headers: {
-            //         'Accept': 'application/pdf',
-            //         'Content-Type': 'application/pdf'
-            //     },
-            //     fileName: fname
-            // });
-            // dl.on('end', () => {
-            //     console.log("File downloaded");
-            //     extractJSON(path.join(folder, fname), folder, (pdfObj) => {
-            //         res.send(pdfObj);
-            //         // socketManager.getSocketFromSessionID(sessionId).emit("pdfRendered", pdfObj);
-            //     });
-            // });
-            // dl.on('error', (err) => console.log("Download failed: ", err.message));
-            // dl.start().catch(err => console.error(err));
         });
     } catch (err) {
         console.log('Exception encountered while executing operation', err);

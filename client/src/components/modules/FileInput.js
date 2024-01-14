@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
 import Dropzone from "./Dropzone";
+import { get } from "../../utilities";
 
 import "./FileInput.css"
 

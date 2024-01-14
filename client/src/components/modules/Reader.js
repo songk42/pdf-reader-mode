@@ -323,111 +323,6 @@ function Reader(props) {
         );
     }
 
-    const tmpObj = {"elements": [{
-        "Kids": [
-            {
-                "Font": {
-                    "italic": true,
-                    "monospaced": false,
-                    "name": "ZRDUTU+LMRoman10-Italic",
-                    "subset": true,
-                    "weight": 400
-                },
-                "Path": "//Document/P[102]/Sub",
-                "Text": "values-targetedmodel",
-            },
-            {
-                "Font": {
-                    "italic": false,
-                    "monospaced": false,
-                    "name": "GIEDJN+LMRoman10-Regular",
-                    "subset": true,
-                    "weight": 400
-                },
-                "Path": "//Document/P[102]/Sub/Span",
-                "Text": ":Theregexis:",
-            },
-            {
-                "Font": {
-                    "italic": false,
-                    "monospaced": false,
-                    "name": "GIEDJN+LMRoman10-Regular",
-                    "subset": true,
-                    "weight": 400
-                },
-                "Path": "//Document/P[102]/Sub[2]",
-                "Text": "([0-9]3)?[0-9]3-[0-9]4",
-            },
-            {
-                "Font": {
-                    "italic": false,
-                    "monospaced": false,
-                    "name": "GIEDJN+LMRoman10-Regular",
-                    "subset": true,
-                    "weight": 400
-                },
-                "Path": "//Document/P[102]/Sub[3]",
-                "Text": "(?=[-]+|",
-            },
-            {
-                "Font": {
-                    "italic": false,
-                    "monospaced": false,
-                    "name": "GIEDJN+LMRoman10-Regular",
-                    "subset": true,
-                    "weight": 400
-                },
-                "Path": "//Document/P[102]/Sub[3]/StyleSpan",
-                "Text": "˙",
-            },
-            {
-                "Font": {
-                    "italic": false,
-                    "monospaced": false,
-                    "name": "GIEDJN+LMRoman10-Regular",
-                    "subset": true,
-                    "weight": 400
-                },
-                "Path": "//Document/P[102]/Sub[3]",
-                "Text": "|",
-            },
-            {
-                "Font": {
-                    "italic": false,
-                    "monospaced": false,
-                    "name": "GIEDJN+LMRoman10-Regular",
-                    "subset": true,
-                    "weight": 400
-                },
-                "Path": "//Document/P[102]/Sub[3]",
-                "Text": ")",
-            },
-            {
-                "Font": {
-                    "italic": false,
-                    "monospaced": false,
-                    "name": "GIEDJN+LMRoman10-Regular",
-                    "subset": true,
-                    "weight": 400
-                },
-                "Path": "//Document/P[102]/Sub[3]/StyleSpan[2]",
-                "Text": "˙",
-            },
-            {
-                "Font": {
-                    "italic": false,
-                    "monospaced": false,
-                    "name": "GIEDJN+LMRoman10-Regular",
-                    "subset": true,
-                    "weight": 400
-                },
-                "Path": "//Document/P[102]/Sub[4]",
-                "Text": "Thisregexwillmatchoursamplenumbers:",
-            }
-        ],
-        "Path": "//Document/P[102]",
-    }]};
-
     return (
         <div
             className={`reader-container reader-container-${props.theme} reader-container-${props.serif ? "serif" : "sans-serif"}`}
@@ -436,8 +331,7 @@ function Reader(props) {
                 "lineHeight": `${props.lineHeight}em`,
                 "width": `${props.bodyWidth}em`
             }}>
-            {getPageContent(tmpObj)}
-            {/* {getPageContent(props.pdfObj)} */}
+            {getPageContent(props.pdfObj)}
         </div>
     );
 }
