@@ -6,6 +6,7 @@ validator.checkSetup();
 // import libraries needed for the webserver to work!
 const http = require("http");
 const express = require("express"); // backend framework for our node server.
+const cors = require('cors');
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const path = require("path"); // provide utilities for working with file and directory paths
@@ -24,6 +25,8 @@ app.use(validator.checkRoutes);
 
 // allow us to parse POST request data using middleware
 app.use(express.json());
+
+app.use(cors());
 
 // set up a session
 app.use(

@@ -1,7 +1,5 @@
 import React from "react";
 
-import Loader from "./Loader";
-
 import "./Reader.css";
 
 function Reader(props) {

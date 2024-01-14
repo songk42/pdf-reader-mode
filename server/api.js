@@ -14,8 +14,6 @@ const os = require("os");
 const path = require("path");
 const yauzl = require("yauzl");
 const { http, https } = require('follow-redirects');
-const { DownloaderHelper } = require('node-downloader-helper');
-
 
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
@@ -101,7 +99,7 @@ router.get("/getfromurl", (req, res) => {
         // make temporary directory
         fs.mkdtemp(path.join(os.tmpdir(), `prm-${sessionId}`), (err, folder) => {
             if (err) {
-                console.log("error 1");
+                console.log("error: could not create temporary directory");
                 throw err;
             }
             // Download PDF from url first
@@ -131,10 +129,29 @@ router.get("/getfromurl", (req, res) => {
 
 router.get("/getfromfile", (req, res) => {
     try {
-        // this is going to have to be changed
-        extractJSON(req.filepath, (pdfObj) => {
-            console.log("asdf");
-            res.send(pdfObj);
+        const sessionId = req.session.id;
+        // make temporary directory
+        fs.mkdtemp(path.join(os.tmpdir(), `prm-${sessionId}`), (err, folder) => {
+            if (err) {
+                console.log("error: could not create temporary directoryc");
+                throw err;
+            }
+            // Download PDF from url first
+            const fname = "prm-input.pdf";
+            const inputpath = path.join(folder, fname);
+            fetch(req.query.fileurl).then((res2) => {
+                const filePath = fs.createWriteStream(inputpath);
+                res2.pipe(filePath);
+                URL.revokeObjectURL(req.query.fileurl);
+                filePath.on("finish", () => {
+                    filePath.close();
+                    console.log("File downloaded");
+                    extractJSON(path.join(folder, fname), folder, (pdfObj) => {
+                        res.send(pdfObj);
+                    });
+                })
+                console.log(res2.responseUrl);
+            });
         });
     } catch (err) {
         console.log('Exception encountered while executing operation', err);
