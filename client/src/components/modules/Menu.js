@@ -43,6 +43,10 @@ function Menu(props) {
                 theme={props.theme}
                 setTheme={props.setTheme}
             />
+            <div className="menu-separator border" />
+            <button onClick={props.scrollUp} className="menu-button menu-new-file">
+                New file
+            </button>
         </div>
     );
 }

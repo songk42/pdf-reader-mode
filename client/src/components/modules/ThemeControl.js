@@ -23,7 +23,7 @@ function ThemeControl(props) {
                 title={"Color scheme"}
             >
                 <label>{props.font}</label>
-                <MdInvertColors className="menu-theme-icon" />
+                <MdInvertColors className="menu-icon" />
             </button>
             <div className={dropdownClassName}>
                 <ThemeButton

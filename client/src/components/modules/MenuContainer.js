@@ -5,7 +5,7 @@ import Menu from "./Menu";
 import "./Menu.css";
 
 function MenuContainer(props) {
-    if (props.menuVisible) {
+    if (props.readerVisible) {
     return (
         <div className="menu-container">
             <Menu
@@ -20,6 +20,7 @@ function MenuContainer(props) {
                 lineHeight={props.lineHeight}
                 bodyWidth={props.bodyWidth}
                 fsDict={props.fsDict}
+                scrollUp={props.scrollUp}
             />
         </div>
     );} else {

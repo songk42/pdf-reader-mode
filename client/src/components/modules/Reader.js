@@ -309,7 +309,7 @@ function Reader(props) {
         return pageContent;
     }
 
-    if (props.loading) {
+    if (props.readerVisible) { 
         return (
             <div
                 className={`reader-container reader-container-${props.theme} reader-container-${props.serif ? "serif" : "sans-serif"}`}
@@ -318,22 +318,12 @@ function Reader(props) {
                     "lineHeight": `${props.lineHeight}em`,
                     "width": `${props.bodyWidth}em`
                 }}>
-                <Loader />
+                {getPageContent(props.pdfObj)}
             </div>
         );
     }
 
-    return (
-        <div
-            className={`reader-container reader-container-${props.theme} reader-container-${props.serif ? "serif" : "sans-serif"}`}
-            style={{
-                "fontSize": `${props.fontSize}px`,
-                "lineHeight": `${props.lineHeight}em`,
-                "width": `${props.bodyWidth}em`
-            }}>
-            {getPageContent(props.pdfObj)}
-        </div>
-    );
+    return <div className="reader-container" />;
 }
 
 export default Reader;

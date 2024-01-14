@@ -6,9 +6,10 @@ import "./FileInput.css"
 
 function FileInput(props) {
     const [fileURL, setFileURL] = useState("");
+    const [loading, setLoading] = useState(false);
 
     function handleUrlSubmit(event) {
-        props.setLoading(true);
+        // setLoading(true);
         const apiInput = {
             fileurl: fileURL,
         };
@@ -16,7 +17,8 @@ function FileInput(props) {
         get(apiCall, apiInput).then((res) => {
             props.setPdfObj(res.pdf);
             props.setOutputDir(res.outputdir);
-            props.setLoading(false);
+            // setLoading(false);
+            props.scrollDown();
         })
             .catch((err) => {
                 throw err;

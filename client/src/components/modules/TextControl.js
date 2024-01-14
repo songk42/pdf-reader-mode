@@ -15,13 +15,13 @@ function TextControl(props) {
 
     return (
         <div className="menu-text-control" title={props.hover}>
-            {props.icon}
             <button
                 className="menu-text-selector menu-dropdown-selector menu-label field"
                 onClick={(e) => toggleDropdown()}
-            >
-                {props.value}
+                >
+                {props.icon}
             </button>
+            {/* <label className="text-selector-label">{props.value}</label> */}
             <ul className={dropdownClassName}>
                 {props.values.map((value) =>
                     <li className="menu-dropdown-item" onClick={(e) => {props.change(value); toggleDropdown();}}><a>{value}</a></li>

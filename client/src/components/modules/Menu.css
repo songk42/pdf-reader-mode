@@ -28,13 +28,6 @@
 }
 
 .menu-icon {
-    height: 32px;
-    width: 32px;
-    align-self: center;
-    padding-right: 8px;
-}
-
-.menu-theme-icon {
     height: 24px;
     width: 24px;
     align-self: center;
@@ -191,6 +184,14 @@
     background-color: #f4ecd8;
     color: #5b4636;
     border: none;
+}
+
+.menu-new-file {
+    background-color: var(--purple-dark);
+    color: var(--dark-text);
+    border-radius: var(--radius);
+    padding: 8px;
+    font-size: 16px;
 }
 
 /* Light */
