@@ -11,6 +11,7 @@ const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
 const express = require("express");
 const fs = require("fs");
 const os = require("os");
+const cors = require('cors');
 const path = require("path");
 const yauzl = require("yauzl");
 const { http, https } = require('follow-redirects');
@@ -93,7 +94,7 @@ function extractJSON(infile, outputdir, callback) {
         });
 }
 
-router.get("/getfromurl", (req, res) => {
+router.get("/getfromurl", cors(), (req, res) => {
     try {
         const sessionId = req.session.id;
         // make temporary directory
