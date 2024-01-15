@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
-import "./Menu.css";
-
 function FontControl(props) {
     const [dropdownClassName, setDropdownClass] = useState("menu-font-list menu-dropdown background hide");
 

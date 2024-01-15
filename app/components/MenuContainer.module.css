@@ -1,0 +1,6 @@
+/* General */
+.menu_container {
+    top: 0px;
+    position: sticky;
+    z-index: 2;
+}

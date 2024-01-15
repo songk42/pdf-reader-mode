@@ -7,7 +7,7 @@ import TextControl from "./TextControl";
 import ThemeControl from "./ThemeControl";
 import "./Menu.css";
 
-function Menu(props) {
+export default function Menu(props) {
 
     const lhDict = [1, 1.15, 1.5, 2, 2.5, 3]  // line spacing
     const bwDict = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90]; // body width
@@ -50,5 +50,3 @@ function Menu(props) {
         </div>
     );
 }
-
-export default Menu;

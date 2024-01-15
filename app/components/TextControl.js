@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import "./Menu.css";
-
 function TextControl(props) {
     const [dropdownClassName, setDropdownClass] = useState("menu-font-list menu-dropdown background hide");
 

@@ -9,7 +9,7 @@
  */
 
 // ex: formatParams({ some_key: "some_value", a: "b"}) => "some_key=some_value&a=b"
-function formatParams(params) {
+export function formatParams(params) {
     // iterate of all the keys of params as an array,
     // map it to a new array of URL string encoded key,value pairs
     // join all the url params using an ampersand (&).
@@ -39,6 +39,7 @@ function convertToJSON(res) {
 // Returns a Promise to a JSON Object.
 export function get(endpoint, params = {}) {
     const fullPath = endpoint + "?" + formatParams(params);
+    console.log(fullPath);
     return fetch(fullPath)
         .then(convertToJSON)
         .catch((error) => {

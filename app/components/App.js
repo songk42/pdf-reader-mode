@@ -1,11 +1,13 @@
+"use client";
+
 import React, { useRef, useState } from "react";
 
-import About from "../modules/About";
-import FileInput from "../modules/FileInput";
-import MenuContainer from "../modules/MenuContainer";
-import Reader from "../modules/Reader";
+import About from "./About";
+import FileInput from "./FileInput";
+import MenuContainer from "./MenuContainer";
+import Reader from "./Reader";
 
-function LandingPage() {
+export default function Page() {
     const [outputdir, setOutputDir] = useState("");
     const [pdfObj, setPdfObj] = useState({"elements": []});
 
@@ -75,5 +77,3 @@ function LandingPage() {
         </div>
     );
 }
-
-export default LandingPage;

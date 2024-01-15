@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 
 import "./Dropzone.css"
 
-function Dropzone(props) {
+export default function Dropzone(props) {
     const onDrop = useCallback(acceptedFiles => {
         // assert(acceptedFiles.length == 1);
         const file = acceptedFiles[0];
@@ -30,5 +30,3 @@ function Dropzone(props) {
         </div>
     )
 }
-
-export default Dropzone;

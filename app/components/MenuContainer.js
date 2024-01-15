@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 
 import Menu from "./Menu";
-import "./Menu.css";
+import styles from "./MenuContainer.module.css";
 
-function MenuContainer(props) {
+export default function MenuContainer(props) {
     if (props.readerVisible) {
     return (
-        <div className="menu-container">
+        <div className={styles.menu_container}>
             <Menu
                 theme={props.theme}
                 setTheme={props.setTheme}
@@ -25,9 +24,8 @@ function MenuContainer(props) {
         </div>
     );} else {
         return (
-            <div className="menu-container" />
+            <div className={styles.menu_container} />
         )
     }
 }
 
-export default MenuContainer;

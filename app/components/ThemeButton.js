@@ -1,11 +1,10 @@
 import React from "react";
 
-import DarkTheme from "../../assets/theme-dark.svg";
-import LightTheme from "../../assets/theme-light.svg";
-import SepiaTheme from "../../assets/theme-sepia.svg";
-import "./Menu.css";
+import DarkTheme from "../../public/assets/theme-dark.svg";
+import LightTheme from "../../public/assets/theme-light.svg";
+import SepiaTheme from "../../public/assets/theme-sepia.svg";
 
-function ThemeButton(props) {
+export default function ThemeButton(props) {
     const colorLower = props.color.toLowerCase();
     function getImage() {
         const className = "menu-theme-option border" + (props.theme == colorLower ? " selected" : "");
@@ -32,5 +31,3 @@ function ThemeButton(props) {
         </div>
     );
 }
-
-export default ThemeButton;

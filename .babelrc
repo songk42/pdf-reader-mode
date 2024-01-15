@@ -1,13 +1,10 @@
 {
     "presets": [
-       ["@babel/preset-env", {
+       ["next/babel", {
           "targets": { "browsers": ["last 2 versions"] },
           "corejs": "3",
           "useBuiltIns": "usage"
-          }],
-        "@babel/react",
-        {
-          "plugins" : ["@babel/plugin-proposal-class-properties"]
-        }
-    ]
+        }]
+    ],
+    "plugins" : ["@babel/plugin-proposal-class-properties"]
 }

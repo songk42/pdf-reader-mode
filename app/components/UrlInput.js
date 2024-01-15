@@ -1,14 +1,19 @@
 import React, { useState } from "react";
+import { getFromUrl } from "../extractjson.ts";
 
 function UrlInput(props) {
     const [fileURL, setFileURL] = useState("");
 
     function handleUrlSubmit(event) {
-        const apiInput = {
-            fileurl: fileURL,
-        };
-        let apiCall = "/api/getfromurl";
-        props.callAPI(apiCall, apiInput);
+        getFromUrl(fileURL).then((res) => {
+            const resParsed = JSON.parse(res);
+            props.setPdfObj(JSON.parse(resParsed));
+            props.setOutputDir(resParsed.outputdir);
+            props.scrollDown();
+        })
+        .catch((err) => {
+            throw err;
+        });
         event.preventDefault();
     }
 

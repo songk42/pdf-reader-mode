@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { MdInvertColors } from "react-icons/md"
 
 import ThemeButton from "./ThemeButton";
-import "./Menu.css";
 
 function ThemeControl(props) {
     const [dropdownClassName, setDropdownClass] = useState("menu-theme-list menu-dropdown background hide");
